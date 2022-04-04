@@ -1,0 +1,59 @@
+MDScreen:
+    # Screen name.
+    name: "main_screen"
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        # Screen header.
+        MDScreen:
+            ScrollView:
+                bar_width: 0
+                MDBoxLayout:
+                    padding: "20dp"
+                    adaptive_height: True
+                    MDLabel:
+                        text: "Wybierz co chcesz poćwiczyć"
+                        font_style: "H4"
+                        halign: "center"
+                        adaptive_height: True
+
+        # Buttons grid at screen center.
+        MDGridLayout:
+            cols: 2
+            rows: 3
+            size_hint: 1, 1
+
+            # Multiplication.
+            Button:
+                text: "Tabliczka Mnożenia"
+                theme_text_color: "Custom"
+                text_color: 0, 1, 1, 1
+                line_color: 1, 0, 0, 0
+                size_hint: 1, 1
+
+            # Fractions.
+            Button:
+                text: "Ułamki"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                line_color: 1, 0, 1, 1
+                size_hint: 1, 1
+
+            # Percents.
+            Button:
+                text: "Procenty"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                line_color: 1, 0, 1, 1
+                size_hint: 1, 1
+
+            # Roman Numbers.
+            Button:
+                text: "Cyfry rzymskie"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                line_color: 1, 0, 1, 1
+                size_hint: 1, 1
+
+            

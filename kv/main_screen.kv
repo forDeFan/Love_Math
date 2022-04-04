@@ -31,6 +31,9 @@ MDScreen:
                 text_color: 0, 1, 1, 1
                 line_color: 1, 0, 0, 0
                 size_hint: 1, 1
+                on_press: 
+                    app.screen_manager.current = "multiplication_screen"
+                    root.manager.transition.direction = "left"
 
             # Fractions.
             Button:
@@ -55,5 +58,15 @@ MDScreen:
                 text_color: 0, 0, 1, 1
                 line_color: 1, 0, 1, 1
                 size_hint: 1, 1
+
+        # Bottom NAV
+        MDBottomNavigation:                
+            # Main screen
+            MDBottomNavigationItem:
+                name: "Menu"
+                text: "Start"
+                icon: "school"
+                on_tab_press: 
+                    app.screen_manager.current = "main_screen"
 
             

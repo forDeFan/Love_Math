@@ -1,8 +1,11 @@
 import os
 
+from kivy.factory import Factory
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager
 from kivymd.app import MDApp
+
+from src.multiplication import Multiply
 
 
 class Main_App(MDApp):
@@ -16,6 +19,9 @@ class Main_App(MDApp):
         kv_files = os.listdir("kv")
         for f in kv_files:
             self.screen_manager.add_widget(Builder.load_file("kv/" + f))
+
+        # Register custom classes.
+        Factory.register(Multiply, cls="Multiply")
 
         return self.screen_manager
 

@@ -1,0 +1,109 @@
+Multiply:
+    name: "multiplication_screen"
+    on_pre_enter: root.set_nums()
+    MDBoxLayout:
+        orientation: "vertical"
+        size_hint: 1, 1
+        # Screen header.
+        MDScreen:
+            ScrollView:
+                bar_width: 0
+                MDBoxLayout:
+                    padding: "20dp"
+                    adaptive_height: True
+                    MDLabel:
+                        text: "Tabliczka Mnożenia"
+                        font_style: "H4"
+                        halign: "center"
+                        adaptive_height: True
+        
+        # Grid to keep elements in one row.
+        MDGridLayout:
+            cols: 1
+            rows: 2
+            size_hint: 1, 2
+            
+            # Question card.
+            MDCard:
+                orientation: "vertical"
+                padding: "10dp"
+                size_hint: .5, None
+                size: "280dp", "150dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                MDLabel:
+                    text: "Jaki będzie wynik ?"
+                    theme_text_color: "Secondary"
+                    halign: "center"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                MDSeparator:
+                    height: "1dp"
+                # Numbers to multiply.
+                MDGridLayout:
+                    cols: 3
+                    size_hint_y: None
+                    MDLabel:
+                        # Get num1 from .py file.
+                        id: num1
+                        text: ""
+                        font_size: 25
+                        halign: "center"
+                    MDLabel:
+                        text: "razy"
+                        halign: "center"
+                    MDLabel:
+                        # Get num2 from .py file.
+                        id: num2
+                        text: ""
+                        font_size: 25
+                        halign: "center"
+            
+            # Result card.
+            MDCard:
+                orientation: "vertical"
+                padding: "10dp"
+                size_hint: .5, None
+                size: "280dp", "150dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                MDLabel:
+                    id: result_card
+                    text: "Wpisz wynik."
+                    theme_text_color: "Secondary"
+                    halign: "center"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                MDSeparator:
+                    height: "1dp"
+                MDTextField:
+                    id: multiplication_result
+                    helper_text: "Wpisz wynik"
+                    pos_hint: {"center_y": .5}
+                    input_type: 'number'
+                # Check result butto.
+                Button:
+                    id: check_button
+                    text: "Sprawdź !"
+                    font_size: 14
+                    on_press: 
+                        if \
+                        root.check_result(root.ids.multiplication_result.text) == True: \
+                        root.ids.result_card.text = "Brawo! Wpisz nowy wynik!"; \
+                        root.ids.multiplication_result.text = "" ;\
+                        root.set_nums()
+                        else: \
+                        root.ids.result_card.text = "Żle! Spróbuj jeszcze raz!"; \
+                        root.ids.multiplication_result.text = ""
+                    size: 75, 50
+                    size_hint: None, None 
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+        # Bottom NAV.
+        MDBottomNavigation:                
+            # Navigate to main screen.
+            MDBottomNavigationItem:
+                name: "Menu"
+                text: "Start"
+                icon: "school"
+                on_tab_press: 
+                    app.screen_manager.current = "main_screen"
+                    root.manager.transition.direction = "right"

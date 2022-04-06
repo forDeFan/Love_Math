@@ -26,9 +26,8 @@ Multiply:
             # Question card.
             MDCard:
                 orientation: "vertical"
-                padding: "10dp"
-                size_hint: .5, None
-                size: "280dp", "150dp"
+                size_hint: 1, 1
+                size: "400dp", "150dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 MDLabel:
                     text: "Jaki będzie wynik ?"
@@ -46,7 +45,7 @@ Multiply:
                         # Get num1 from .py file.
                         id: num1
                         text: ""
-                        font_size: 25
+                        font_style: "H3"
                         halign: "center"
                     MDLabel:
                         text: "razy"
@@ -55,35 +54,32 @@ Multiply:
                         # Get num2 from .py file.
                         id: num2
                         text: ""
-                        font_size: 25
+                        font_style: "H3"
                         halign: "center"
             
             # Result card.
             MDCard:
                 orientation: "vertical"
-                padding: "10dp"
-                size_hint: .5, None
+                size_hint: 1, 1
                 size: "280dp", "150dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 MDLabel:
                     id: result_card
-                    text: "Wpisz wynik."
-                    theme_text_color: "Secondary"
+                    text: ""
                     halign: "center"
-                    size_hint_y: None
-                    height: self.texture_size[1]
-                MDSeparator:
-                    height: "1dp"
                 MDTextField:
                     id: multiplication_result
-                    helper_text: "Wpisz wynik"
+                    multiline: False
                     pos_hint: {"center_y": .5}
+                    halign: "center"
                     input_type: 'number'
-                # Check result butto.
-                Button:
+                    font_style: "H6"
+                # Check result button.
+                MDRaisedButton:
                     id: check_button
                     text: "Sprawdź !"
-                    font_size: 14
+                    font_style: "H5"
+                    theme_text_color: "Custom"
                     on_press: 
                         if \
                         root.check_result(root.ids.multiplication_result.text) == True: \
@@ -93,17 +89,17 @@ Multiply:
                         else: \
                         root.ids.result_card.text = "Żle! Spróbuj jeszcze raz!"; \
                         root.ids.multiplication_result.text = ""
-                    size: 75, 50
+                    size: 80, 50
                     size_hint: None, None 
                     pos_hint: {"center_x": .5, "center_y": .5}
 
         # Bottom NAV.
         MDBottomNavigation:                
-            # Navigate to main screen.
+            # Main screen
             MDBottomNavigationItem:
                 name: "Menu"
                 text: "Start"
-                icon: "school"
+                icon: "menu"
                 on_tab_press: 
                     app.screen_manager.current = "main_screen"
                     root.manager.transition.direction = "right"

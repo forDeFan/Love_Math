@@ -1,15 +1,10 @@
 from random import randint
 from typing import Tuple
-from kivy.factory import Factory
 
 from kivy.uix.screenmanager import Screen
 
 
 class Multiply(Screen):
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        Factory.register(Multiply, cls="Multiply")
-
     def generate_numbers(self) -> Tuple[int, int]:
         num1 = randint(2, 30)
         num2 = randint(2, 9)

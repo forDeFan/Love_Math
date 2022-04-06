@@ -47,7 +47,7 @@ requirements = python3,kivy,kivymd==0.104.2,pillow
 presplash.filename = %(source.dir)s/assets/math_logo.jpg
 
 # (str) Icon of the application
-#icon.filename = %(source.dir)s/data/icon.png
+icon.filename = %(source.dir)s/assets/math_icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait

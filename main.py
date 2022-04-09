@@ -1,9 +1,10 @@
 import os
 
+from kivy.factory import Factory
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager
 from kivymd.app import MDApp
-from kivy.factory import Factory
+
 from src.multiplication import Multiply
 
 

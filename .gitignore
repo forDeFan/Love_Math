@@ -2,3 +2,4 @@ math
 src/__pycache__
 .buildozer
 bin
+.vscode

@@ -1,102 +1,95 @@
 Multiply:
     name: "multiplication_screen"
     on_pre_enter: root.set_nums()
+
     MDBoxLayout:
         orientation: "vertical"
-        size_hint: 1, 1
-        # Screen header.
-        MDScreen:
-            ScrollView:
-                bar_width: 0
-                MDBoxLayout:
-                    padding: "20dp"
-                    adaptive_height: True
-                    MDLabel:
-                        text: "Tabliczka Mnożenia"
-                        font_style: "H4"
-                        halign: "center"
-                        adaptive_height: True
+        spacing: root.height/4
         
-        # Grid to keep elements in one row.
-        MDGridLayout:
-            cols: 1
-            rows: 2
-            size_hint: 1, 2
-            
+        MDBoxLayout:
+            orientation: "vertical"
+            spacing: "40dp"
+
+            # Page header.    
+            MDLabel:
+                text: "Tabliczka Mnożenia"
+                font_style: "H4"
+                halign: "center"
+
             # Question card.
             MDCard:
                 orientation: "vertical"
-                size_hint: 1, 1
-                size: "400dp", "150dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
+                halign: "center"
+                size_hint: None, None
+                size: "300dp", "200dp"
+                pos_hint: {"center_x": .5, "center_y": .2}
                 MDLabel:
                     text: "Jaki będzie wynik ?"
                     theme_text_color: "Secondary"
                     halign: "center"
-                    size_hint_y: None
-                    height: self.texture_size[1]
                 MDSeparator:
                     height: "1dp"
                 # Numbers to multiply.
-                MDGridLayout:
-                    cols: 3
-                    size_hint_y: None
+                MDBoxLayout:
                     MDLabel:
-                        # Get num1 from .py file.
+                        # Get num1 from Multiply.
                         id: num1
                         text: ""
-                        font_style: "H3"
+                        font_size: "55dp"
                         halign: "center"
                     MDLabel:
                         text: "razy"
                         halign: "center"
                     MDLabel:
-                        # Get num2 from .py file.
+                        # Get num2 from Multiply.
                         id: num2
                         text: ""
-                        font_style: "H3"
+                        font_size: "55dp"
                         halign: "center"
             
             # Result card.
             MDCard:
                 orientation: "vertical"
-                size_hint: 1, 1
-                size: "280dp", "150dp"
+                size_hint: None, None
+                size: "300dp", "200dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
-                MDLabel:
-                    id: result_card
-                    text: ""
-                    halign: "center"
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: "5dp"
+                    MDLabel:
+                        id: result_card
+                        font_size: "15dp"
+                        text: "Wpisz wynik."
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                        size_hint_y: None
+                        height: self.texture_size[1]
                 MDTextField:
                     id: multiplication_result
                     multiline: False
                     pos_hint: {"center_y": .5}
                     halign: "center"
                     input_type: 'number'
-                    font_style: "H6"
-                # Check result button.
-                MDRaisedButton:
-                    id: check_button
-                    text: "Sprawdź !"
-                    font_style: "H5"
-                    theme_text_color: "Custom"
-                    on_press: 
-                        if \
-                        root.check_result(root.ids.multiplication_result.text) == True: \
-                        root.ids.result_card.text = "Brawo! Wpisz nowy wynik!"; \
-                        root.ids.multiplication_result.text = "" ;\
-                        root.set_nums()
-                        else: \
-                        root.ids.result_card.text = "Żle! Spróbuj jeszcze raz!"; \
-                        root.ids.multiplication_result.text = ""
-                    size: 80, 50
-                    size_hint: None, None 
-                    pos_hint: {"center_x": .5, "center_y": .5}
-
+                    font_size: "40dp"
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: "10dp"
+                    # Check result button.
+                    MDRaisedButton:
+                        id: check_button
+                        text: "Sprawdź !"
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        on_press: root.show_result()
+                        size: "80dp", "50dp"
+                        size_hint: None, None 
+                        pos_hint: {"center_x": .5, "center_y": .5}
+    
         # Bottom NAV.
-        MDBottomNavigation:                
+        MDBottomNavigation:        
+            size_hint_y: None
             # Main screen
-            MDBottomNavigationItem:
+            MDBottomNavigationItem: 
                 name: "Menu"
                 text: "Start"
                 icon: "menu"

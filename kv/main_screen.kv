@@ -1,72 +1,69 @@
+#: import Factory kivy.factory.Factory
+
 MDScreen:
     # Screen name.
     name: "main_screen"
 
     MDBoxLayout:
         orientation: "vertical"
-
-        # Screen header.
-        MDScreen:
-            ScrollView:
-                bar_width: 0
-                MDBoxLayout:
-                    padding: "20dp"
-                    adaptive_height: True
-                    MDLabel:
-                        text: "Wybierz co chcesz poćwiczyć"
-                        font_style: "H4"
-                        halign: "center"
-                        adaptive_height: True
-
-        # Buttons grid at screen center.
+        spacing: "30px"
+        # Header.
+        MDLabel:
+            text: "Wybierz co chcesz poćwiczyć"
+            font_style: "H4"
+            halign: "center"
+            adaptive_height: True
+        # Cards.
         MDGridLayout:
             cols: 2
             rows: 3
-            size_hint: 1, 1
-
+            padding: "10px"
+            spacing: "15px"
             # Multiplication.
-            Button:
-                text: "Tabliczka Mnożenia"
-                theme_text_color: "Custom"
-                text_color: 0, 1, 1, 1
-                line_color: 1, 0, 0, 0
-                size_hint: 1, 1
-                on_press: 
+            MDCard:
+                on_release: 
                     app.screen_manager.current = "multiplication_screen"
                     root.manager.transition.direction = "left"
-
+                MDLabel:
+                    text: "Tabliczka Mnożenia"
+                    halign: "center"
             # Fractions.
-            Button:
-                text: "Ułamki"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                line_color: 1, 0, 1, 1
-                size_hint: 1, 1
-
+            MDCard:
+                MDLabel:
+                    text: "Ułamki"
+                    halign: "center"
             # Percents.
-            Button:
-                text: "Procenty"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                line_color: 1, 0, 1, 1
-                size_hint: 1, 1
-
+            MDCard:
+                MDLabel:
+                    text: "Procenty"
+                    halign: "center"
             # Roman Numbers.
-            Button:
-                text: "Cyfry rzymskie"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                line_color: 1, 0, 1, 1
-                size_hint: 1, 1
+            MDCard:
+                MDLabel:
+                    text: "Cyfry rzymskie"
+                    halign: "center"
 
-        # Bottom NAV
-        MDBottomNavigation:                
-            # Main screen
-            MDBottomNavigationItem:
-                name: "Menu"
-                text: "Start"
-                icon: "menu"
+        # Bottom NAV.
+        MDBottomNavigation:        
+            size_hint_y: .2
+            panel_color: (250/255, 232/255, 238/255, 1)
+            selected_color_background: (1,0,1,1)
+            text_color_active: (1,0,0,1)
+            MDBottomNavigationItem: 
+                text: "Twój wynik"
+                text_color: (0,0,0,1)
+                icon: "account"
+            MDBottomNavigationItem: 
+                text: "Wyślij wynik"
+                icon: "send"
+            MDBottomNavigationItem: 
+                text: "Koniec"
+                icon: "exit-run"
                 on_tab_press: 
-                    app.screen_manager.current = "main_screen"
+                    Factory.Helpers().custom_popup( \
+                    t_txt="Potwierdź", \
+                    c_txt="Czy na pewno chcesz wyjść ?", \
+                    foo=app, \
+                    exit_popup=True)
 
-            
+                    

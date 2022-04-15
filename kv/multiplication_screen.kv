@@ -1,20 +1,23 @@
+#: import Factory kivy.factory.Factory
+
 Multiply:
     name: "multiplication_screen"
     on_pre_enter: root.set_nums()
 
     MDBoxLayout:
         orientation: "vertical"
-        spacing: root.height/4
+        spacing: root.height/3.9
         
         MDBoxLayout:
             orientation: "vertical"
-            spacing: "40dp"
+            spacing: "20dp"
 
             # Page header.    
             MDLabel:
                 text: "Tabliczka Mnożenia"
                 font_style: "H4"
                 halign: "center"
+                adaptative_height: False
 
             # Question card.
             MDCard:
@@ -38,7 +41,8 @@ Multiply:
                         font_size: "55dp"
                         halign: "center"
                     MDLabel:
-                        text: "razy"
+                        text: "X"
+                        font_size: "25dp"
                         halign: "center"
                     MDLabel:
                         # Get num2 from Multiply.
@@ -49,6 +53,7 @@ Multiply:
             
             # Result card.
             MDCard:
+                id: result_card
                 orientation: "vertical"
                 size_hint: None, None
                 size: "300dp", "200dp"
@@ -57,9 +62,9 @@ Multiply:
                     orientation: "vertical"
                     padding: "5dp"
                     MDLabel:
-                        id: result_card
-                        font_size: "15dp"
+                        id: result_label
                         text: "Wpisz wynik."
+                        font_size: "15dp"
                         theme_text_color: "Secondary"
                         halign: "center"
                         size_hint_y: None
@@ -80,19 +85,34 @@ Multiply:
                         text: "Sprawdź !"
                         font_style: "H6"
                         theme_text_color: "Custom"
-                        on_press: root.show_result()
                         size: "80dp", "50dp"
                         size_hint: None, None 
                         pos_hint: {"center_x": .5, "center_y": .5}
-    
+                        on_press: root.show_result()
+
         # Bottom NAV.
         MDBottomNavigation:        
-            size_hint_y: None
-            # Main screen
+            size_hint_y: .2
+            panel_color: (250/255, 232/255, 238/255, 1)
+            selected_color_background: (1,0,1,1)
+            text_color_active: (1,0,0,1)
+            # Go back to main screen.
             MDBottomNavigationItem: 
-                name: "Menu"
-                text: "Start"
-                icon: "menu"
+                text: "Do Menu"
+                icon: "backup-restore"
                 on_tab_press: 
                     app.screen_manager.current = "main_screen"
                     root.manager.transition.direction = "right"
+            MDBottomNavigationItem: 
+                text: "Twój wynik"
+                icon: "account"
+            MDBottomNavigationItem: 
+                text: "Koniec"
+                icon: "exit-run"
+                on_tab_press:
+                    Factory.Helpers().custom_popup( \
+                    t_txt="Potwierdź", \
+                    c_txt="Czy na pewno chcesz wyjść ?", \
+                    foo=app, \
+                    exit_popup=True)
+

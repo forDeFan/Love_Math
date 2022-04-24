@@ -4,3 +4,5 @@ src/__pycache__
 bin
 .vscode
 log.txt
+.env
+dbase.db

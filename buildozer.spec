@@ -19,7 +19,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.include_patterns = assets/*,images/*.png
 
 # (list) Source files to exclude (let empty to not exclude anything)
-#source.exclude_exts = spec
+source.exclude_exts = requirements.txt
 
 # (list) List of directory to exclude (let empty to not exclude anything)
 source.exclude_dirs = tests,bin,math,.vscode,.buildozer
@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd==0.104.2,pillow,sqlite3
+requirements = python3,kivy,kivymd==0.104.2,pillow==9.1.0,sqlite3
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -93,7 +93,7 @@ android.presplash_color = white
 #icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = STORGAE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host

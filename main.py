@@ -13,6 +13,19 @@ from src.multiplication import Multiply
 
 class Main_App(MDApp):
     def build(self):
+        # Get android permissions if run on android.
+        if platform == "android":
+            from android.permissions import (
+                request_permissions,
+                Permission,
+            )
+
+            request_permissions(
+                [
+                    Permission.READ_EXTERNAL_STORAGE,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                ]
+            )
         # Setup app defaults details.
         self.title = "I LoVE MatH"
         self.theme_cls.primary_palette = "Pink"

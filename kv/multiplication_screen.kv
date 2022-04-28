@@ -6,26 +6,35 @@ Multiply:
 
     MDBoxLayout:
         orientation: "vertical"
-        spacing: root.height/3.9
+        # Cards from top position.
+        spacing: root.height/4.5
         
         MDBoxLayout:
             orientation: "vertical"
-            spacing: "20dp"
-
+            spacing: "10dp"
+            
             # Page header.    
             MDLabel:
                 text: "Tabliczka Mnożenia"
                 font_style: "H4"
                 halign: "center"
                 adaptative_height: False
-
+        
+            # Total result.
+            MDBoxLayout:
+                orientation: "horizontal"
+                MDLabel:
+                    id: score
+                    text: "Punktów: 0"
+                    halign: "center"
+    
             # Question card.
             MDCard:
                 orientation: "vertical"
                 halign: "center"
                 size_hint: None, None
                 size: "300dp", "200dp"
-                pos_hint: {"center_x": .5, "center_y": .2}
+                pos_hint: {"center_x": .5, "center_y": .5}
                 MDLabel:
                     text: "Jaki będzie wynik ?"
                     theme_text_color: "Secondary"
@@ -74,7 +83,7 @@ Multiply:
                     multiline: False
                     pos_hint: {"center_y": .5}
                     halign: "center"
-                    input_type: 'number'
+                    input_type: "number"
                     font_size: "40dp"
                 MDBoxLayout:
                     orientation: "vertical"
@@ -88,7 +97,9 @@ Multiply:
                         size: "80dp", "50dp"
                         size_hint: None, None 
                         pos_hint: {"center_x": .5, "center_y": .5}
-                        on_press: root.show_result()
+                        on_press: 
+                            app.update_db_result("multiply", root.show_result())
+                            root.ids.score.text = "Punktów: " + app.get_db_result("multiply")
 
         # Bottom NAV.
         MDBottomNavigation:        
@@ -100,9 +111,13 @@ Multiply:
             MDBottomNavigationItem: 
                 text: "Do Menu"
                 icon: "backup-restore"
-                on_tab_press: 
-                    app.screen_manager.current = "main_screen"
-                    root.manager.transition.direction = "right"
+                on_tab_press:
+                    Factory.Helpers().custom_popup( \
+                    t_txt="Potwierdź", \
+                    c_txt="Wyjście do menu głównego?", \
+                    foo=app, \
+                    exit_popup=False, \
+                    go_main_screen=True)
             MDBottomNavigationItem: 
                 text: "Twój wynik"
                 icon: "account"
@@ -112,7 +127,8 @@ Multiply:
                 on_tab_press:
                     Factory.Helpers().custom_popup( \
                     t_txt="Potwierdź", \
-                    c_txt="Czy na pewno chcesz wyjść ?", \
+                    c_txt="Wyniki zostaną utracone.\nMoże najpierw je wyślij.\n\nCzy na pewno wyjść z aplikacji?", \
                     foo=app, \
-                    exit_popup=True)
+                    exit_popup=True, \
+                    go_main_screen=False)
 

@@ -43,9 +43,9 @@ class Multiply(Screen):
                 235 / 255,
                 1,
             )
-            self.ids.result_label.outline_width = "4dp"
-            self.ids.result_label.font_size = "60dp"
-            self.ids.result_label.text = "Dobrze :)"
+            self.ids.result_label.outline_width = "3dp"
+            self.ids.result_label.font_size = "30dp"
+            self.ids.result_label.text = "Dobrze :)\n+1 punkt"
             hel.hide_widget(self, self.ids.check_button, dohide=True)
             hel.hide_widget(
                 self, self.ids.multiplication_result, dohide=True

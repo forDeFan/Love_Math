@@ -31,12 +31,26 @@ class Helpers(Widget):
             )
 
     def custom_popup(
-        self, t_txt: str, c_txt: str, foo: any, exit_popup=False
+        self,
+        t_txt: str,
+        c_txt: str,
+        foo: any,
+        exit_popup=False,
+        go_main_screen=False,
     ):
+
         self.box = BoxLayout(
             orientation="vertical", spacing="10px", size=(750, 750)
         )
-        self.box.add_widget(Label(text=c_txt))
+        self.box.add_widget(
+            Label(
+                text=c_txt,
+                size_hint_min_x=self.width - 30,
+                size_hint_min_y=self.box.height / 2.5,
+                font_size=self.height / 2.5,
+            )
+        )
+        print(self.size)
         self.confirm_button = Button(text="TAK")
         self.abort_button = Button(text="NIE")
         self.box.add_widget(self.confirm_button)
@@ -44,9 +58,10 @@ class Helpers(Widget):
 
         self.pop = Popup(
             title=t_txt,
+            title_size=self.height / 4,
             content=self.box,
             size_hint=(None, None),
-            size=(765, 755),
+            size=(750, 750),
             auto_dismiss=False,
         )
 
@@ -54,9 +69,18 @@ class Helpers(Widget):
             on_press=lambda *args: self.pop.dismiss()
         )
 
+        # For lambda - go to main_screen.
+        def go_to_main_menu(foo):
+            foo.screen_manager.current = "main_screen"
+
         if exit_popup:
             self.confirm_button.bind(on_press=lambda *args: foo.stop())
+        if go_main_screen:
+            self.confirm_button.bind(
+                on_press=lambda *args: self.pop.dismiss(),
+                on_release=lambda *args: go_to_main_menu(foo),
+            )
         else:
-            self.confirm_button.bind(on_press=lambda *args: foo)
+            foo
 
         self.pop.open()

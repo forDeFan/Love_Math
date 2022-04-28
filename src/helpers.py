@@ -47,18 +47,25 @@ class Helpers(Widget):
                 text=c_txt,
                 size_hint_min_x=self.width - 30,
                 size_hint_min_y=self.box.height / 2.5,
-                font_size=self.height / 2.5,
+                font_size=self.height / 2.3,
+                halign="center",
             )
         )
-        print(self.size)
-        self.confirm_button = Button(text="TAK")
-        self.abort_button = Button(text="NIE")
+
+        self.confirm_button = Button(
+            text="TAK",
+            font_size=self.height / 1.8,
+        )
+        self.abort_button = Button(
+            text="NIE", font_size=self.height / 1.8
+        )
         self.box.add_widget(self.confirm_button)
         self.box.add_widget(self.abort_button)
 
         self.pop = Popup(
             title=t_txt,
-            title_size=self.height / 4,
+            title_size=self.height / 2,
+            title_align="center",
             content=self.box,
             size_hint=(None, None),
             size=(750, 750),

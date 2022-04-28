@@ -4,7 +4,7 @@ from typing import Tuple
 from kivy.clock import Clock
 from kivy.uix.screenmanager import Screen
 
-from src.helpers import Helpers as hel
+from src.ui_helpers import Ui_Helpers as hel
 
 
 class Multiply(Screen):

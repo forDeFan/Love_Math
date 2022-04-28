@@ -7,7 +7,7 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 
 from src.db_connection import Db_Connection
-from src.helpers import Helpers
+from src.ui_helpers import Ui_Helpers
 from src.multiplication import Multiply
 
 
@@ -44,7 +44,7 @@ class Main_App(MDApp):
 
         # Register custom classes tp use them in kv's.
         Factory.register(Multiply, "Multiply")
-        Factory.register(Helpers, "Helpers")
+        Factory.register(Ui_Helpers, "Ui_Helpers")
 
         # Start global DB.
         self.db = Db_Connection(

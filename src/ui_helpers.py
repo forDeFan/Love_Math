@@ -5,7 +5,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.widget import Widget
 
 
-class Helpers(Widget):
+class Ui_Helpers(Widget):
     def hide_widget(self, wid, dohide=True):
         if hasattr(wid, "saved_attrs"):
             if not dohide:

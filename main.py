@@ -24,6 +24,8 @@ class Main_App(MDApp):
                 [
                     Permission.READ_EXTERNAL_STORAGE,
                     Permission.WRITE_EXTERNAL_STORAGE,
+                    Permission.READ_CONTACTS,
+                    Permission.SEND_SMS,
                 ]
             )
         # Setup app defaults details.

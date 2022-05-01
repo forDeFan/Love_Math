@@ -14,8 +14,6 @@ class Db_Connection:
         )
         # Add categories from list.
         for c in categories:
-            # Remove "".
-            c.strip("")
             self.cur.execute(
                 f"INSERT OR IGNORE INTO results(category,result) VALUES ('{c}','0')"
             )

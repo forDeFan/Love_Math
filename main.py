@@ -38,21 +38,6 @@ class Main_App(MDApp):
         self.title = "I LoVE MatH"
         self.theme_cls.primary_palette = "Pink"
 
-        self.screen_manager = ScreenManager()
-
-        # Load main screen at app startup.
-        self.screen_manager.add_widget(
-            Builder.load_file("kv/main_screen.kv")
-        )
-
-        # Load rest of kv's.
-        self.screen_manager.add_widget(
-            Builder.load_file("kv/multiplication_screen.kv")
-        )
-        self.screen_manager.add_widget(
-            Builder.load_file("kv/results_screen.kv")
-        )
-
         # Register custom classes tp use them in kv's.
         Factory.register(Multiply, "Multiply")
         Factory.register(Ui_Helpers, "Ui_Helpers")
@@ -60,10 +45,17 @@ class Main_App(MDApp):
         # Start global DB.
         self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)
 
-        return self.screen_manager
+        self.screen_manager = ScreenManager()
+        # Load main screen at app startup.
+        self.screen_manager.add_widget(
+            Builder.load_file("kv/main_screen.kv")
+        )
+        # Load rest of kv's.
+        kv_files = os.listdir("kv")
+        for f in kv_files:
+            self.screen_manager.add_widget(Builder.load_file("kv/" + f))
 
-    def on_start(self):
-        self.screen_manager.current = "main_screen"
+        return self.screen_manager
 
     def on_stop(self):
         if os.path.isfile(const.DB_NAME):

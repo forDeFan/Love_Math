@@ -14,8 +14,8 @@ from src.ui_helpers import Ui_Helpers
 
 class Main_App(MDApp):
     def build(self):
-        # Get android permissions if run on android.
         if platform == "android":
+            # Get android permissions if run on android.
             from android.permissions import (
                 Permission,
                 request_permissions,

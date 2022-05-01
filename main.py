@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager
 from kivy.utils import platform
 from kivymd.app import MDApp
 
+import src.constants as const
 from src.db_connection import Db_Connection
 from src.multiplication import Multiply
 from src.ui_helpers import Ui_Helpers
@@ -57,13 +58,7 @@ class Main_App(MDApp):
         Factory.register(Ui_Helpers, "Ui_Helpers")
 
         # Start global DB.
-        self.db = Db_Connection(
-            "my.db",
-            "multiply",
-            "fraction",
-            "percent",
-            "roman",
-        )
+        self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)
 
         return self.screen_manager
 
@@ -71,9 +66,8 @@ class Main_App(MDApp):
         self.screen_manager.current = "main_screen"
 
     def on_stop(self):
-        db_file = "my.db"
-        if os.path.isfile(db_file):
-            os.remove(db_file)
+        if os.path.isfile(const.DB_NAME):
+            os.remove(const.DB_NAME)
 
     def update_result(self, category_name: str, good_answer: bool):
         if good_answer:

@@ -53,6 +53,9 @@ MDScreen:
                 text: "Twój wynik"
                 text_color: (0,0,0,1)
                 icon: "account"
+                on_tab_press: 
+                    app.screen_manager.current = "results_screen"
+                    root.manager.transition.direction = "left"
             MDBottomNavigationItem: 
                 text: "Wyślij wynik"
                 icon: "send"

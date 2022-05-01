@@ -1,8 +1,9 @@
 import sqlite3
+from typing import List
 
 
 class Db_Connection:
-    def __init__(self, db_name: str, *categories: str) -> None:
+    def __init__(self, db_name: str, categories: List[str]) -> None:
         self.conn = sqlite3.connect(db_name)
         self.cur = self.conn.cursor()
         self.cur.execute(
@@ -11,13 +12,13 @@ class Db_Connection:
             result integer,
             UNIQUE(category))"""
         )
-
+        # Add categories from list.
         for c in categories:
+            # Remove "".
+            c.strip("")
             self.cur.execute(
-                f"INSERT OR IGNORE INTO results VALUES ('{c}','0')"
+                f"INSERT OR IGNORE INTO results(category,result) VALUES ('{c}','0')"
             )
-        """for row in self.cur.execute("SELECT * FROM results"):
-            print(row)"""
 
         self.conn.commit()
 

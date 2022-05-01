@@ -31,7 +31,7 @@ class Db_Connection:
         )
         self.conn.commit()
 
-    def get_result(self, category_name: str):
+    def get_result(self, category_name: str) -> str:
         res = self.cur.execute(
             f"SELECT result FROM results WHERE category='{category_name}'"
         )

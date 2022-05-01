@@ -1,0 +1,96 @@
+MDScreen:
+    name: "results_screen"
+    on_pre_enter: 
+        multiplication_result.text = app.get_result("multiply")
+        percent_result.text = app.get_result("multiply")
+        roman_result.text = app.get_result("multiply")
+
+    MDBoxLayout:
+        orientation: "vertical"
+        # Cards from top position.
+        spacing: root.height/4.5
+        
+        MDBoxLayout:
+            orientation: "vertical"
+            
+            # Page header.    
+            MDLabel:
+                text: "Twoje wyniki"
+                font_style: "H4"
+                halign: "center"
+                adaptative_height: False
+    
+            # Question card.
+            MDCard:
+                orientation: "vertical"
+                halign: "center"
+                size_hint: None, None
+                size: "300dp", "400dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    MDLabel:
+                        text: "Mnożenie"
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                    MDLabel:
+                        id: multiplication_result
+                        text: ""
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    spacing: "10dp"
+                    MDLabel:
+                        text: "Procenty"
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                    MDLabel:
+                        id: percent_result
+                        text: ""
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    spacing: "10dp"
+                    MDLabel:
+                        text: "Cyfry rzymskie"
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                    MDLabel:
+                        id: roman_result
+                        text: ""
+                        theme_text_color: "Secondary"
+                        halign: "center"
+               
+        # Bottom NAV.
+        MDBottomNavigation:        
+            size_hint_y: .2
+            panel_color: (250/255, 232/255, 238/255, 1)
+            selected_color_background: (1,0,1,1)
+            text_color_active: (1,0,0,1)
+            # Go back to main screen.
+            MDBottomNavigationItem: 
+                text: "Do Menu"
+                icon: "backup-restore"
+                on_tab_press:
+                    Factory.Ui_Helpers().custom_popup( \
+                    t_txt="Potwierdź", \
+                    c_txt="Wyjście do menu głównego?", \
+                    foo=app, \
+                    exit_popup=False, \
+                    go_main_screen=True)
+            MDBottomNavigationItem: 
+                text: "Wyślij wynik"
+                icon: "send"
+                on_tab_press: app.send_result_sms("500100900", "message with test")
+            MDBottomNavigationItem: 
+                text: "Koniec"
+                icon: "exit-run"
+                on_tab_press:
+                    Factory.Ui_Helpers().custom_popup( \
+                    t_txt="Potwierdź", \
+                    c_txt="Wyniki zostaną utracone.\nMoże najpierw je wyślij.\n\nCzy na pewno wyjść z aplikacji?", \
+                    foo=app, \
+                    exit_popup=True, \
+                    go_main_screen=False)

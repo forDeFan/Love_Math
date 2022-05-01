@@ -48,6 +48,9 @@ class Main_App(MDApp):
         self.screen_manager.add_widget(
             Builder.load_file("kv/multiplication_screen.kv")
         )
+        self.screen_manager.add_widget(
+            Builder.load_file("kv/results_screen.kv")
+        )
 
         # Register custom classes tp use them in kv's.
         Factory.register(Multiply, "Multiply")

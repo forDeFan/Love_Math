@@ -72,11 +72,11 @@ class Main_App(MDApp):
         if os.path.isfile(db_file):
             os.remove(db_file)
 
-    def update_db_result(self, category_name: str, good_answer: bool):
+    def update_result(self, category_name: str, good_answer: bool):
         if good_answer:
             self.db.update_result(category_name)
 
-    def get_db_result(self, category_name: str) -> str:
+    def get_result(self, category_name: str) -> str:
         return str(self.db.get_result(category_name)[0])
 
     def send_result_sms(self, tel, msg):

@@ -98,8 +98,8 @@ Multiply:
                         size_hint: None, None 
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: 
-                            app.update_db_result("multiply", root.show_result())
-                            root.ids.score.text = "Punktów: " + app.get_db_result("multiply")
+                            app.update_result("multiply", root.show_result())
+                            root.ids.score.text = "Punktów: " + app.get_result("multiply")
 
         # Bottom NAV.
         MDBottomNavigation:        

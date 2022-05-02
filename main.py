@@ -53,7 +53,12 @@ class Main_App(MDApp):
         # Load rest of kv's.
         kv_files = os.listdir("kv")
         for f in kv_files:
-            self.screen_manager.add_widget(Builder.load_file("kv/" + f))
+            if f == "main_screen.kv":
+                pass
+            else:
+                self.screen_manager.add_widget(
+                    Builder.load_file("kv/" + f)
+                )
 
         return self.screen_manager
 

@@ -112,15 +112,14 @@ Multiply:
                 text: "Do Menu"
                 icon: "backup-restore"
                 on_tab_press:
-                    Factory.Ui_Helpers().custom_popup( \
-                    t_txt="Potwierdź", \
-                    c_txt="Wyjście do menu głównego?", \
-                    foo=app, \
-                    exit_popup=False, \
-                    go_main_screen=True)
+                    app.screen_manager.current = "main_screen"
+                    root.manager.transition.direction = "right"
             MDBottomNavigationItem: 
                 text: "Twój wynik"
                 icon: "account"
+                on_tab_press:
+                    app.screen_manager.current = "results_screen"
+                    root.manager.transition.direction = "left"
             MDBottomNavigationItem: 
                 text: "Koniec"
                 icon: "exit-run"

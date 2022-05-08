@@ -77,6 +77,12 @@ class Main_App(MDApp):
         if platform == "android":
             self.phone.send_sms(tel=tel, msg=msg)
 
+    # TODO - dark mode ?
+    def theme_switch(self, theme: str) -> None:
+        # theme = "Dark"
+        # self.theme_cls.theme_style = theme
+        pass
+
 
 if __name__ == "__main__":
     Main_App().run()

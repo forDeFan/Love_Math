@@ -89,7 +89,7 @@ Results:
                     padding: "20px"
                     pos_hint: {"center_x": .5, "center_y": .5}
                     #TODO implement method in Android_helpers.
-                    on_press: app.send_result_sms("502502502", "hejo")
+                    on_press: root.send_result_sms(app.phone)
                
         # Bottom NAV.
         MDBottomNavigation:        

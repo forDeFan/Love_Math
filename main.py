@@ -68,10 +68,6 @@ class Main_App(MDApp):
         if os.path.isfile(const.DB_NAME):
             os.remove(const.DB_NAME)
 
-    def send_result_sms(self, tel, msg):
-        if platform == "android":
-            print(self.phone.get_ph_book())
-
     # TODO - dark mode ?
     def theme_switch(self, theme: str) -> None:
         # theme = "Dark"

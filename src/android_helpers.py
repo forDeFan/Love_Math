@@ -1,17 +1,16 @@
-from plyer import sms
+from typing import Dict, List
+
 from kvdroid.tools import toast
 from kvdroid.tools.contact import get_contact_details
+from plyer import sms
 
 
 class Android_Helpers:
-    def get_ph_book(self):
+    def get_ph_book(self) -> Dict[str, List[str]]:
         return get_contact_details("phone_book")
 
-    def get_ph_no(self, name):
-        return get_contact_details(name)
-
-    def show_toast(self, text):
+    def show_toast(self, text: str):
         toast(text)
 
-    def send_sms(self, tel, msg):
-        sms.send(recipient=str(tel), message=msg)
+    def send_sms(self, tel: str, msg: str):
+        sms.send(recipient=tel, message=msg)

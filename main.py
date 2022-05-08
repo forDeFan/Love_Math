@@ -10,6 +10,7 @@ import src.constants as const
 from src.db_connection import Db_Connection
 from src.multiplication import Multiply
 from src.ui_helpers import Ui_Helpers
+from src.results import Results
 
 
 class Main_App(MDApp):
@@ -41,6 +42,7 @@ class Main_App(MDApp):
         # Register custom classes tp use them in kv's.
         Factory.register(Multiply, "Multiply")
         Factory.register(Ui_Helpers, "Ui_Helpers")
+        Factory.register(Results, "Results")
 
         # Start global DB.
         self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)
@@ -66,16 +68,9 @@ class Main_App(MDApp):
         if os.path.isfile(const.DB_NAME):
             os.remove(const.DB_NAME)
 
-    def update_result(self, category_name: str, good_answer: bool):
-        if good_answer:
-            self.db.update_result(category_name)
-
-    def get_result(self, category_name: str) -> str:
-        return str(self.db.get_result(category_name)[0])
-
     def send_result_sms(self, tel, msg):
         if platform == "android":
-            self.phone.send_sms(tel=tel, msg=msg)
+            print(self.phone.get_ph_book())
 
     # TODO - dark mode ?
     def theme_switch(self, theme: str) -> None:

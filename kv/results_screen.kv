@@ -1,18 +1,16 @@
-MDScreen:
+Results:
     name: "results_screen"
     on_pre_enter: 
-        multiplication_result.text = app.get_result("multiply")
-        percent_result.text = app.get_result("multiply")
-        roman_result.text = app.get_result("multiply")
+        multiplication_result.text = root.get_result(app.db, "multiply")
+        fraction_result.text = root.get_result(app.db, "multiply")
+        roman_result.text = root.get_result(app.db, "multiply")
+        percent_result.text = root.get_result(app.db, "multiply")
 
     MDBoxLayout:
         orientation: "vertical"
-        # Cards from top position.
-        spacing: root.height/4.5
         
         MDBoxLayout:
             orientation: "vertical"
-            
             # Page header.    
             MDLabel:
                 text: "Twoje wyniki"
@@ -20,17 +18,19 @@ MDScreen:
                 halign: "center"
                 adaptative_height: False
     
-            # Question card.
+            # Total results card.
             MDCard:
                 orientation: "vertical"
                 halign: "center"
                 size_hint: None, None
                 size: "300dp", "400dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
+                padding: "20px"
+                # Multiplication.
                 MDBoxLayout:
                     orientation: "horizontal"
                     MDLabel:
-                        text: "Mnożenie"
+                        text: "Tabliczka mnożenia"
                         theme_text_color: "Secondary"
                         halign: "center"
                     MDLabel:
@@ -38,6 +38,20 @@ MDScreen:
                         text: ""
                         theme_text_color: "Secondary"
                         halign: "center"
+                # Fractions.
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    spacing: "10dp"
+                    MDLabel:
+                        text: "Ułamki"
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                    MDLabel:
+                        id: fraction_result
+                        text: ""
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                # Percents.
                 MDBoxLayout:
                     orientation: "horizontal"
                     spacing: "10dp"
@@ -50,6 +64,7 @@ MDScreen:
                         text: ""
                         theme_text_color: "Secondary"
                         halign: "center"
+                # Roman numbers.
                 MDBoxLayout:
                     orientation: "horizontal"
                     spacing: "10dp"
@@ -62,6 +77,19 @@ MDScreen:
                         text: ""
                         theme_text_color: "Secondary"
                         halign: "center"
+            # Send sms.
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: "30px"
+                MDFillRoundFlatButton:
+                    text: "wyślij wynik"
+                    theme_text_color: "Custom"
+                    text_color: 0, 0, 0, 1
+                    font_size: "18sp"
+                    padding: "20px"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    #TODO implement method in Android_helpers.
+                    on_press: app.send_result_sms("502502502", "hejo")
                
         # Bottom NAV.
         MDBottomNavigation:        
@@ -74,16 +102,17 @@ MDScreen:
                 text: "Do Menu"
                 icon: "backup-restore"
                 on_tab_press:
-                    Factory.Ui_Helpers().custom_popup( \
-                    t_txt="Potwierdź", \
-                    c_txt="Wyjście do menu głównego?", \
-                    foo=app, \
-                    exit_popup=False, \
-                    go_main_screen=True)
+                    app.screen_manager.current = "main_screen"
+                    root.manager.transition.direction = "right"
+            # Go to previous screen.
             MDBottomNavigationItem: 
-                text: "Wyślij wynik"
-                icon: "send"
-                on_tab_press: app.send_result_sms("500100900", "message with test")
+                text: "Powrót"
+                icon: "backburger"
+                on_tab_press: 
+                    #TODO change way of navigation when multiple screens.
+                    app.screen_manager.current = app.screen_manager.next()
+                    root.manager.transition.direction = "right"
+            # Close the app.
             MDBottomNavigationItem: 
                 text: "Koniec"
                 icon: "exit-run"

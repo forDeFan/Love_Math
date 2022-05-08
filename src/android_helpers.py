@@ -7,7 +7,7 @@ class Android_Helpers:
     def get_ph_book(self):
         return get_contact_details("phone_book")
 
-    def get_phone_no(self, name):
+    def get_ph_no(self, name):
         return get_contact_details(name)
 
     def show_toast(self, text):

@@ -38,56 +38,61 @@ class Ui_Helpers(Widget):
         exit_popup=False,
         go_main_screen=False,
     ):
-
-        self.box = BoxLayout(
-            orientation="vertical", spacing="10px", size=(750, 750)
+        content_wrapper = BoxLayout(
+            orientation="vertical",
+            size_hint=(1, 1),
         )
-        self.box.add_widget(
-            Label(
-                text=c_txt,
-                size_hint_min_x=self.width - 30,
-                size_hint_min_y=self.box.height / 2.5,
-                font_size=self.height / 2.3,
-                halign="center",
-            )
+        label_wrapper = BoxLayout(
+            orientation="vertical", size_hint=(1, 0.8)
+        )
+        button_wrapper = BoxLayout(
+            orientation="vertical", spacing=15, size_hint=(1, 0.5)
         )
 
-        self.confirm_button = Button(
+        label = Label(
+            text=c_txt,
+            size_hint=(1, 0.5),
+            font_size=content_wrapper.height / 2,
+            halign="center",
+            pos_hint={"center_x": 0.5, "center_y": 0.5},
+        )
+        confirm_button = Button(
             text="TAK",
-            font_size=self.height / 1.8,
+            font_size=content_wrapper.height / 1.5,
         )
-        self.abort_button = Button(
-            text="NIE", font_size=self.height / 1.8
-        )
-        self.box.add_widget(self.confirm_button)
-        self.box.add_widget(self.abort_button)
-
-        self.pop = Popup(
-            title=t_txt,
-            title_size=self.height / 2,
-            title_align="center",
-            content=self.box,
-            size_hint=(None, None),
-            size=(750, 750),
-            auto_dismiss=False,
+        abort_button = Button(
+            text="NIE",
+            font_size=content_wrapper.height / 1.5,
         )
 
-        self.abort_button.bind(
-            on_press=lambda *args: self.pop.dismiss()
-        )
+        label_wrapper.add_widget(label)
+        content_wrapper.add_widget(label_wrapper)
+        button_wrapper.add_widget(confirm_button)
+        button_wrapper.add_widget(abort_button)
+        content_wrapper.add_widget(button_wrapper)
 
-        # For lambda - go to main_screen.
-        def go_to_main_menu(foo):
-            foo.screen_manager.current = "main_screen"
-
+        # Bind action to buttons.
+        abort_button.bind(on_press=lambda *args: self.pop.dismiss())
         if exit_popup:
-            self.confirm_button.bind(on_press=lambda *args: foo.stop())
+            confirm_button.bind(on_press=lambda *args: foo.stop())
         if go_main_screen:
-            self.confirm_button.bind(
+
+            def go_to_main_menu(foo):
+                foo.screen_manager.current = "main_screen"
+
+            confirm_button.bind(
                 on_press=lambda *args: self.pop.dismiss(),
                 on_release=lambda *args: go_to_main_menu(foo),
             )
         else:
             foo
 
+        self.pop = Popup(
+            title=t_txt,
+            title_size=content_wrapper.height / 1.5,
+            title_align="center",
+            content=content_wrapper,
+            size_hint=(0.7, 0.5),
+            auto_dismiss=False,
+        )
         self.pop.open()

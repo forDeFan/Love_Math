@@ -20,6 +20,7 @@ MDScreen:
             spacing: "20px"
             # Multiplication.
             MDCard:
+                ripple_behavior: True
                 on_release: 
                     app.screen_manager.current = "multiplication_screen"
                     root.manager.transition.direction = "left"
@@ -28,16 +29,19 @@ MDScreen:
                     halign: "center"
             # Fractions.
             MDCard:
+                ripple_behavior: True
                 MDLabel:
                     text: "Ułamki"
                     halign: "center"
             # Percents.
             MDCard:
+                ripple_behavior: True
                 MDLabel:
                     text: "Procenty"
                     halign: "center"
             # Roman Numbers.
             MDCard:
+                ripple_behavior: True
                 MDLabel:
                     text: "Cyfry rzymskie"
                     halign: "center"

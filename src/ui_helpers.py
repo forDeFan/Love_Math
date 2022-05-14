@@ -1,7 +1,11 @@
+from typing import List
+
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
+from kivy.uix.recycleboxlayout import RecycleBoxLayout
+from kivy.uix.recycleview import RecycleView
 from kivy.uix.widget import Widget
 
 
@@ -52,7 +56,7 @@ class Ui_Helpers(Widget):
         label = Label(
             text=c_txt,
             size_hint=(1, 0.5),
-            font_size=content_wrapper.height / 2,
+            font_size=content_wrapper.width / 2,
             halign="center",
             pos_hint={"center_x": 0.5, "center_y": 0.5},
         )
@@ -96,3 +100,21 @@ class Ui_Helpers(Widget):
             auto_dismiss=False,
         )
         self.pop.open()
+
+    def custom_recycle_view(
+        self, wid_id, row_class: str, data: List[str]
+    ) -> RecycleView:
+        recycle_box = RecycleBoxLayout(
+            default_size=(None, 80),
+            default_size_hint=(1, None),
+            size_hint=(1, None),
+            orientation="vertical",
+        )
+        recycle_box.bind(minimum_height=recycle_box.setter("height"))
+        recycle_view = RecycleView()
+        recycle_view.data = data
+        recycle_view.add_widget(recycle_box)
+        recycle_view.viewclass = row_class
+        wid_id.add_widget(recycle_view)
+
+        return recycle_view

@@ -45,7 +45,7 @@ class Results(Screen):
 
         self.rv = ui_hlp.custom_recycle_view(
             self,
-            wid_id=card,
+            wid=card,
             row_class="MDFlatButton",
             # Button events.
             data=[

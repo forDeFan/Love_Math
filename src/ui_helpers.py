@@ -106,7 +106,7 @@ class Ui_Helpers(Widget):
         self.pop.open()
 
     def custom_recycle_view(
-        self, wid_id, row_class: str, data: List[str]
+        self, wid: Widget, row_class: str, data: List[str]
     ) -> RecycleView:
         recycle_box = RecycleBoxLayout(
             default_size=(None, 80),
@@ -119,6 +119,6 @@ class Ui_Helpers(Widget):
         recycle_view.data = data
         recycle_view.add_widget(recycle_box)
         recycle_view.viewclass = row_class
-        wid_id.add_widget(recycle_view)
+        wid.add_widget(recycle_view)
 
         return recycle_view

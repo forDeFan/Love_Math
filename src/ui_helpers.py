@@ -10,7 +10,7 @@ from kivy.uix.widget import Widget
 
 
 class Ui_Helpers(Widget):
-    def hide_widget(self, wid, dohide=True):
+    def hide_widget(self, wid: Widget, dohide=True) -> None:
         if hasattr(wid, "saved_attrs"):
             if not dohide:
                 (
@@ -42,7 +42,7 @@ class Ui_Helpers(Widget):
         exit_popup=False,
         go_main_screen=False,
         confirm=False,
-    ):
+    ) -> None:
         content_wrapper = BoxLayout(
             orientation="vertical",
             size_hint=(1, 1),

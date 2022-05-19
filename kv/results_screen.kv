@@ -1,10 +1,10 @@
 Results:
     name: "results_screen"
     on_pre_enter: 
-        multiplication_result.text = root.get_result(app.db, "multiply")
-        fraction_result.text = root.get_result(app.db, "multiply")
-        roman_result.text = root.get_result(app.db, "multiply")
-        percent_result.text = root.get_result(app.db, "multiply")
+        multiplication_result_label.text = root.get_result(app.db, "multiply")
+        fraction_result_label.text = root.get_result(app.db, "multiply")
+        roman_result_label.text = root.get_result(app.db, "multiply")
+        percent_result_label.text = root.get_result(app.db, "multiply")
 
     MDBoxLayout:
         orientation: "vertical"
@@ -13,6 +13,7 @@ Results:
             orientation: "vertical"
             # Page header.    
             MDLabel:
+                id: page_label
                 text: "Twoje wyniki"
                 font_style: "H4"
                 halign: "center"
@@ -20,76 +21,81 @@ Results:
     
             # Total results card.
             MDCard:
+                id: results_card
                 orientation: "vertical"
                 halign: "center"
                 size_hint: None, None
                 size: "300dp", "400dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 padding: "20px"
-                # Multiplication.
                 MDBoxLayout:
-                    orientation: "horizontal"
-                    MDLabel:
-                        text: "Tabliczka mnożenia"
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                    MDLabel:
-                        id: multiplication_result
-                        text: ""
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                # Fractions.
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "10dp"
-                    MDLabel:
-                        text: "Ułamki"
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                    MDLabel:
-                        id: fraction_result
-                        text: ""
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                # Percents.
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "10dp"
-                    MDLabel:
-                        text: "Procenty"
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                    MDLabel:
-                        id: percent_result
-                        text: ""
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                # Roman numbers.
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "10dp"
-                    MDLabel:
-                        text: "Cyfry rzymskie"
-                        theme_text_color: "Secondary"
-                        halign: "center"
-                    MDLabel:
-                        id: roman_result
-                        text: ""
-                        theme_text_color: "Secondary"
-                        halign: "center"
+                    id: results_box
+                    orientation: "vertical"
+                    # Multiplication.
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        MDLabel:
+                            text: "Tabliczka mnożenia"
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                        MDLabel:
+                            id: multiplication_result_label
+                            text: ""
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                    # Fractions.
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        spacing: "10dp"
+                        MDLabel:
+                            text: "Ułamki"
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                        MDLabel:
+                            id: fraction_result_label
+                            text: ""
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                    # Percents.
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        spacing: "10dp"
+                        MDLabel:
+                            text: "Procenty"
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                        MDLabel:
+                            id: percent_result_label
+                            text: ""
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                    # Roman numbers.
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        spacing: "10dp"
+                        MDLabel:
+                            text: "Cyfry rzymskie"
+                            theme_text_color: "Secondary"
+                            halign: "center"
+                        MDLabel:
+                            id: roman_result_label
+                            text: ""
+                            theme_text_color: "Secondary"
+                            halign: "center"
+
             # Send sms.
             MDBoxLayout:
                 orientation: "vertical"
                 padding: "30px"
                 MDFillRoundFlatButton:
+                    id: send_button
                     text: "wyślij wynik"
                     theme_text_color: "Custom"
                     text_color: 0, 0, 0, 1
                     font_size: "18sp"
                     padding: "20px"
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    #TODO implement method in Android_helpers.
-                    on_press: root.send_result_sms(app.phone)
+                    on_press: root.show_phone_book()
                
         # Bottom NAV.
         MDBottomNavigation:        
@@ -122,4 +128,5 @@ Results:
                     c_txt="Wyniki zostaną utracone.\nMoże najpierw je wyślij.\n\nCzy na pewno wyjść z aplikacji?", \
                     foo=app, \
                     exit_popup=True, \
-                    go_main_screen=False)
+                    go_main_screen=False, \
+                    confirm=False)

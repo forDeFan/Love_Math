@@ -41,6 +41,7 @@ class Ui_Helpers(Widget):
         foo: any,
         exit_popup=False,
         go_main_screen=False,
+        confirm=False,
     ):
         content_wrapper = BoxLayout(
             orientation="vertical",
@@ -88,8 +89,11 @@ class Ui_Helpers(Widget):
                 on_press=lambda *args: self.pop.dismiss(),
                 on_release=lambda *args: go_to_main_menu(foo),
             )
-        else:
-            foo
+        if confirm:
+            confirm_button.bind(
+                on_press=lambda *args: self.pop.dismiss(),
+                on_release=foo,
+            )
 
         self.pop = Popup(
             title=t_txt,

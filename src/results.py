@@ -11,26 +11,26 @@ class Results(Screen):
 
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
-    ):
+    ) -> None:
         if good_answer:
             db.update_result(category_name)
 
-    def hide_results(self):
+    def hide_results(self) -> None:
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
 
-    def show_results(self):
+    def show_results(self) -> None:
         self.hide_phone_book()
         self.ids.page_label.text = "Twoje wyniki"
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=False)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=False)
 
-    def hide_phone_book(self):
+    def hide_phone_book(self) -> None:
         ui_hlp.hide_widget(self, wid=self.rv, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
 
-    def show_phone_book(self):
+    def show_phone_book(self) -> None:
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
@@ -58,7 +58,7 @@ class Results(Screen):
                         t_txt="Potwierdź",
                         c_txt="Czy wysłać wynik ?",
                         foo=lambda *args: self.send(
-                            "500100900", "sending"
+                            tel="500100900", msg="sending"
                         ),
                         exit_popup=False,
                         go_main_screen=False,
@@ -69,7 +69,7 @@ class Results(Screen):
             ],
         )
 
-    def send(self, tel, msg):
+    def send(self, tel: str, msg: str) -> None:
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 

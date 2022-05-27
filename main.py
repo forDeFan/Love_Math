@@ -39,7 +39,7 @@ class Main_App(MDApp):
         self.title = "I LoVE MatH"
         self.theme_cls.primary_palette = "Pink"
 
-        # Register custom classes tp use them in kv's.
+        # Register custom classes to use them in kv's.
         Factory.register(Multiply, "Multiply")
         Factory.register(Ui_Helpers, "Ui_Helpers")
         Factory.register(Results, "Results")

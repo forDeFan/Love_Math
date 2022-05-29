@@ -34,3 +34,7 @@ class Db_Connection:
             f"SELECT result FROM results WHERE category='{category_name}'"
         )
         return res.fetchone()
+
+    def get_results(self) -> List[str]:
+        res = self.cur.execute("SELECT * FROM results")
+        return res.fetchall()

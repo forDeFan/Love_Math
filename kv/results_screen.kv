@@ -2,9 +2,9 @@ Results:
     name: "results_screen"
     on_pre_enter: 
         multiplication_result_label.text = root.get_result(app.db, "multiply")
-        fraction_result_label.text = root.get_result(app.db, "multiply")
-        roman_result_label.text = root.get_result(app.db, "multiply")
-        percent_result_label.text = root.get_result(app.db, "multiply")
+        fraction_result_label.text = root.get_result(app.db, "fraction")
+        roman_result_label.text = root.get_result(app.db, "percent")
+        percent_result_label.text = root.get_result(app.db, "roman")
 
     MDBoxLayout:
         orientation: "vertical"

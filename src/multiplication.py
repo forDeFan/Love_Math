@@ -13,10 +13,15 @@ class Multiply(Screen):
         num2 = randint(2, 9)
         return num1, num2
 
-    def set_nums(self) -> None:
-        nums = self.generate_numbers()
-        self.ids.num1.text = str(nums[0])
-        self.ids.num2.text = str(nums[1])
+    def set_nums(self, nums=None) -> None:
+        num1 = self.ids.num1.text
+        if num1 == "":
+            nums = self.generate_numbers()
+            self.ids.num1.text = str(nums[0])
+            self.ids.num2.text = str(nums[1])
+        elif nums != None:
+            self.ids.num1.text = str(nums[0])
+            self.ids.num2.text = str(nums[1])
 
     def new_multiplication_setup(self):
         hel.hide_widget(self, self.ids.check_button, dohide=False)
@@ -28,7 +33,6 @@ class Multiply(Screen):
         self.ids.multiplication_result.text = ""
         self.ids.result_label.text = "Wpisz wynik"
         self.ids.result_label.font_size = "15dp"
-        self.set_nums()
 
     def show_result(self) -> bool:
         user_result = self.ids.multiplication_result.text
@@ -53,6 +57,7 @@ class Multiply(Screen):
             Clock.schedule_once(
                 lambda dt: self.new_multiplication_setup(), 2
             )
+            self.set_nums(self.generate_numbers())
             return True
         else:
             self.ids.result_label.outline_color = (

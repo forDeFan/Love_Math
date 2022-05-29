@@ -2,7 +2,7 @@
 
 Multiply:
     name: "multiplication_screen"
-    on_pre_enter: root.set_nums()
+    on_pre_enter: root.set_nums(nums=None)
 
     MDBoxLayout:
         orientation: "vertical"
@@ -25,7 +25,13 @@ Multiply:
                 orientation: "horizontal"
                 MDLabel:
                     id: score
-                    text: "Punktów: 0"
+                    text: "Punktów: "
+                    halign: "center"
+            MDBoxLayout:
+                orientation: "horizontal"
+                MDLabel:
+                    id: score_num
+                    text: ""
                     halign: "center"
     
             # Question card.
@@ -99,7 +105,7 @@ Multiply:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: 
                             Factory.Results.update_result(self, app.db, "multiply", root.show_result())
-                            root.ids.score.text = "Punktów: " + Factory.Results.get_result(self, app.db, "multiply")
+                            root.ids.score_num.text = Factory.Results.get_result(self, app.db, "multiply")
 
         # Bottom NAV.
         MDBottomNavigation:        

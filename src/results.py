@@ -1,6 +1,8 @@
 from kivy.uix.screenmanager import Screen
 from kivy.utils import platform
+from kivymd.uix.button import MDFlatButton
 
+import src.constants as const
 from src.db_connection import Db_Connection
 from src.ui_helpers import Ui_Helpers as ui_hlp
 
@@ -8,6 +10,9 @@ from src.ui_helpers import Ui_Helpers as ui_hlp
 class Results(Screen):
     def get_result(self, db: Db_Connection, category: str) -> str:
         return str(db.get_result(category)[0])
+
+    def get_results(self, db: Db_Connection):
+        return str(db.get_results())
 
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
@@ -30,50 +35,69 @@ class Results(Screen):
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
 
-    def show_phone_book(self) -> None:
+    def show_phone_book(self, db: Db_Connection) -> None:
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
             ph_book = an_hlp.get_ph_book(self)
         else:
             # For non android purposes.
-            ph_book = [1, 2]
+            ph_book = ["tata", "mama"]
 
         self.ids.page_label.text = "Wyślij wynik do:"
         self.hide_results()
-        card = self.ids.results_card
+        rv_wrapper = self.ids.results_card
 
         self.rv = ui_hlp.custom_recycle_view(
             self,
-            wid=card,
-            row_class="MDFlatButton",
-            # Button events.
+            wid=rv_wrapper,
+            # Custom button class.
+            rv_row_class="Rv_Button",
+            # Button events for rv.
             data=[
-                {
+                {  # From phone book.
                     "text": str(x),
-                    "theme_text_color": "Custom",
-                    "text_color": (0, 0, 0, 1),
-                    "on_press": lambda: ui_hlp.custom_popup(
-                        self,
-                        t_txt="Potwierdź",
-                        c_txt="Czy wysłać wynik ?",
-                        foo=lambda *args: self.send(
-                            tel="500100900", msg="sending"
-                        ),
-                        exit_popup=False,
-                        go_main_screen=False,
-                        confirm=True,
-                    ),
+                    # Global db to be passed to rv_button.
+                    "db_obj": self.get_results(db),
+                    # self = Results. To be passed to rv_button.
+                    "results_obj": self,
                 }
                 for x in ph_book
             ],
         )
 
-    def send(self, tel: str, msg: str) -> None:
+
+# Custom button class to be passed to RecycleView obj.
+class Rv_Button(MDFlatButton):
+    def on_press(self):
+        # Confirm popup before sms.
+        ui_hlp.custom_popup(
+            self,
+            t_txt="Potwierdź",
+            c_txt="Czy wysłać wynik ?",
+            foo=lambda *args: self.send(
+                receiver=self.text,
+                result=self.db_obj,
+            ),
+            exit_popup=False,
+            go_main_screen=False,
+            confirm=True,
+        )
+
+    def send(self, receiver: str, result: str) -> None:
+        message = (
+            "Cześć "
+            + receiver
+            + " zobacz moje wyniki w aplikacji "
+            + const.APP_NAME
+            + ": "
+            + result
+        )
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
-            an_hlp.send_sms(self, tel=tel, msg=msg)
+            an_hlp.send_sms(self, tel=receiver, msg=message)
         # For non android purposes.
-        print(tel, msg)
-        self.show_results()
+        print(receiver, message)
+        # Results.show_result()
+        self.results_obj.show_results()

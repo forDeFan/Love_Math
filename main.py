@@ -36,7 +36,7 @@ class Main_App(MDApp):
             self.phone = Android_Helpers()
 
         # Setup app defaults details.
-        self.title = "I LoVE MatH"
+        self.title = const.APP_NAME
         self.theme_cls.primary_palette = "Pink"
 
         # Register custom classes to use them in kv's.

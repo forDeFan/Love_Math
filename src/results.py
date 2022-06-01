@@ -56,9 +56,9 @@ class Results(Screen):
             # Button events for rv.
             data=[
                 {  # Nem from phone book.
-                    "text": str(name),
+                    "text": name,
                     # Tel no.
-                    "phone_no": str(tel),
+                    "phone_no": tel,
                     # Global db to be passed to rv_button.
                     "db_obj": self.get_results(db),
                     # self = Results. To be passed to rv_button.

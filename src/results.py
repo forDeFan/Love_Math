@@ -42,7 +42,7 @@ class Results(Screen):
             ph_book = an_hlp.get_ph_book(self)
         else:
             # For non android purposes.
-            ph_book = ["tata", "mama"]
+            ph_book = {"tata": "500100900", "mama": "900100500"}
 
         self.ids.page_label.text = "Wyślij wynik do:"
         self.hide_results()
@@ -55,14 +55,16 @@ class Results(Screen):
             rv_row_class="Rv_Button",
             # Button events for rv.
             data=[
-                {  # From phone book.
-                    "text": str(x),
+                {  # Nem from phone book.
+                    "text": str(name),
+                    # Tel no.
+                    "phone_no": str(tel),
                     # Global db to be passed to rv_button.
                     "db_obj": self.get_results(db),
                     # self = Results. To be passed to rv_button.
                     "results_obj": self,
                 }
-                for x in ph_book
+                for name, tel in ph_book.items()
             ],
         )
 
@@ -74,9 +76,10 @@ class Rv_Button(MDFlatButton):
         ui_hlp.custom_popup(
             self,
             t_txt="Potwierdź",
-            c_txt="Czy wysłać wynik ?",
+            c_txt="Czy wysłać wynik do " + self.text + " ?",
             foo=lambda *args: self.send(
-                receiver=self.text,
+                receiver_name=self.text,
+                phone_no=self.phone_no,
                 result=self.db_obj,
             ),
             exit_popup=False,
@@ -84,10 +87,10 @@ class Rv_Button(MDFlatButton):
             confirm=True,
         )
 
-    def send(self, receiver: str, result: str) -> None:
+    def send(self, receiver_name, phone_no: str, result: str) -> None:
         message = (
-            "Cześć "
-            + receiver
+            "Hej "
+            + receiver_name
             + " zobacz moje wyniki w aplikacji "
             + const.APP_NAME
             + ": "
@@ -96,8 +99,8 @@ class Rv_Button(MDFlatButton):
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
-            an_hlp.send_sms(self, tel=receiver, msg=message)
+            an_hlp.send_sms(self, tel=phone_no, msg=message)
         # For non android purposes.
-        print(receiver, message)
+        print("printing from sms: ", phone_no, message)
         # Results.show_result()
         self.results_obj.show_results()

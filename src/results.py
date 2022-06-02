@@ -11,8 +11,22 @@ class Results(Screen):
     def get_result(self, db: Db_Connection, category: str) -> str:
         return str(db.get_result(category)[0])
 
-    def get_results(self, db: Db_Connection):
-        return str(db.get_results())
+    def get_results(self, db: Db_Connection) -> str:
+        r = db.get_results()
+        res = ""
+        for index, c in enumerate(r):
+            if const.CATEGORIES[index] in c[0]:
+                r = (
+                    c[0].replace(
+                        const.CATEGORIES[index],
+                        const.CATEGORIES_PL[index],
+                    )
+                    + ": "
+                    + str(c[1])
+                    + ", "
+                )
+                res += r
+        return res
 
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
@@ -56,7 +70,7 @@ class Results(Screen):
             # Button events for rv.
             data=[
                 {  # Nem from phone book.
-                    "text": name,
+                    "text": name.capitalize(),
                     # Tel no.
                     "phone_no": tel,
                     # Global db to be passed to rv_button.
@@ -76,7 +90,9 @@ class Rv_Button(MDFlatButton):
         ui_hlp.custom_popup(
             self,
             t_txt="Potwierdź",
-            c_txt="Czy wysłać wynik do " + self.text + " ?",
+            c_txt="Czy wysłać wynik do "
+            + self.text.capitalize()
+            + " ?",
             foo=lambda *args: self.send(
                 receiver_name=self.text,
                 phone_no=self.phone_no,
@@ -87,20 +103,25 @@ class Rv_Button(MDFlatButton):
             confirm=True,
         )
 
-    def send(self, receiver_name, phone_no: str, result: str) -> None:
+    def send(
+        self, receiver_name: str, phone_no: str, result: str
+    ) -> None:
         message = (
             "Hej "
             + receiver_name
             + " zobacz moje wyniki w aplikacji "
             + const.APP_NAME
-            + ": "
+            + "."
+            + "\n"
             + result
         )
+
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
             an_hlp.send_sms(self, tel=phone_no, msg=message)
-        # For non android purposes.
-        print("printing from sms: ", phone_no, message)
+        else:
+            # For non android purposes.
+            print("sms: ", phone_no, message)
         # Results.show_result()
         self.results_obj.show_results()

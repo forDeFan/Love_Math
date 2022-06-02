@@ -25,8 +25,8 @@ class Results(Screen):
                     + str(c[1])
                     + ", "
                 )
-                res += r
-        return res
+                res += r.capitalize()
+        return res.rstrip(", ") + "."
 
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool

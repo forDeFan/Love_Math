@@ -7,3 +7,4 @@ log.txt
 .env
 dbase.db
 my.db
+log.*

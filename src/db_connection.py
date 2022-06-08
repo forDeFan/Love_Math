@@ -1,5 +1,5 @@
 import sqlite3
-from typing import List
+from typing import List, Tuple
 
 
 class Db_Connection:
@@ -35,6 +35,6 @@ class Db_Connection:
         )
         return res.fetchone()
 
-    def get_results(self) -> List[str]:
+    def get_results(self) -> List[Tuple[str, str]]:
         res = self.cur.execute("SELECT * FROM results")
         return res.fetchall()

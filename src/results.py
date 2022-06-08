@@ -12,21 +12,11 @@ class Results(Screen):
         return str(db.get_result(category)[0])
 
     def get_results(self, db: Db_Connection) -> str:
+        # TODO format res in polish categories.
         r = db.get_results()
-        res = ""
-        for index, c in enumerate(r):
-            if const.CATEGORIES[index] in c[0]:
-                r = (
-                    c[0].replace(
-                        const.CATEGORIES[index],
-                        const.CATEGORIES_PL[index],
-                    )
-                    + ": "
-                    + str(c[1])
-                    + ", "
-                )
-                res += r.capitalize()
-        return res.rstrip(", ") + "."
+        res = ", ".join(map(lambda x: x[0] + " " + str(x[1]), r))
+
+        return res
 
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
@@ -56,7 +46,10 @@ class Results(Screen):
             ph_book = an_hlp.get_ph_book(self)
         else:
             # For non android purposes.
-            ph_book = {"tata": "500100900", "mama": "900100500"}
+            ph_book = {
+                "tata": ["500100900", "100100100"],
+                "mama": "900100500",
+            }
 
         self.ids.page_label.text = "Wyślij wynik do:"
         self.hide_results()
@@ -119,7 +112,7 @@ class Rv_Button(MDFlatButton):
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
-            an_hlp.send_sms(self, tel=phone_no, msg=message)
+            an_hlp.send_sms(self, tel=phone_no[0], msg=message)
         else:
             # For non android purposes.
             print("sms: ", phone_no, message)

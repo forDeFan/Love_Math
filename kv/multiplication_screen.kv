@@ -104,8 +104,8 @@ Multiply:
                         size_hint: None, None 
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: 
-                            Factory.Results.update_result(self, app.db, "multiply", root.show_result())
-                            root.ids.score_num.text = Factory.Results.get_result(self, app.db, "multiply")
+                            Factory.Results.update_result(self, app.db, app.const.CATEGORIES[0], root.show_result())
+                            root.ids.score_num.text = Factory.Results.get_result(self, app.db, app.const.CATEGORIES[0])
 
         # Bottom NAV.
         MDBottomNavigation:        

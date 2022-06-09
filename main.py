@@ -11,6 +11,7 @@ from src.db_connection import Db_Connection
 from src.multiplication import Multiply
 from src.ui_helpers import Ui_Helpers
 from src.results import Results
+import src.constants as const
 
 
 class Main_App(MDApp):
@@ -46,6 +47,9 @@ class Main_App(MDApp):
 
         # Start global DB.
         self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)
+
+        # Add global constants.
+        self.const = const
 
         self.screen_manager = ScreenManager()
         # Load main screen at app startup.

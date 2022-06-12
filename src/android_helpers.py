@@ -10,10 +10,10 @@ class Android_Helpers:
     def get_ph_book(self) -> Dict[str, List[str]]:
         return get_contact_details("phone_book")
 
-    def show_toast(self, text: str):
+    def show_toast(self, text: str) -> None:
         toast(text)
 
-    def send_sms(self, tel: str, msg: str):
+    def send_sms(self, tel: str, msg: str) -> None:
         sms.send(recipient=tel, message=msg)
 
     def check_lang() -> str:

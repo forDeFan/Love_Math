@@ -5,6 +5,10 @@ from kivymd.uix.button import MDFlatButton
 import src.constants as const
 from src.db_connection import Db_Connection
 from src.ui_helpers import Ui_Helpers as ui_hlp
+from src.os_helpers import Os_Helpers as os_hlp
+
+if platform == "android":
+    from src.android_helpers import Android_Helpers as an_hlp
 
 
 class Results(Screen):
@@ -12,11 +16,27 @@ class Results(Screen):
         return str(db.get_result(category)[0])
 
     def get_results(self, db: Db_Connection) -> str:
-        # TODO format res in polish categories.
-        r = db.get_results()
-        res = ", ".join(map(lambda x: x[0] + " " + str(x[1]), r))
+        db_res = db.get_results()
+        str_res = ", ".join(
+            map(lambda x: x[0] + " " + str(x[1]), db_res)
+        )
 
-        return res
+        for i, el in enumerate(const.CATEGORIES):
+            if el in str_res:
+                lang_el = const.CATEGORIES_PL[i].capitalize()
+
+                if platform == "android":
+                    if an_hlp.check_lang() == const.APP_LANG[0]:
+                        str_res = str_res.replace(el, lang_el)
+                    else:
+                        str_res = str_res.replace(el, el.capitalize())
+                else:
+                    if os_hlp.check_lang(self) == const.APP_LANG[0]:
+                        str_res = str_res.replace(el, lang_el)
+                    else:
+                        str_res = str_res.replace(el, el.capitalize())
+
+        return str_res + "."
 
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
@@ -41,8 +61,6 @@ class Results(Screen):
 
     def show_phone_book(self, db: Db_Connection) -> None:
         if platform == "android":
-            from src.android_helpers import Android_Helpers as an_hlp
-
             ph_book = an_hlp.get_ph_book(self)
         else:
             # For non android purposes.
@@ -62,7 +80,7 @@ class Results(Screen):
             rv_row_class="Rv_Button",
             # Button events for rv.
             data=[
-                {  # Nem from phone book.
+                {  # Name from phone book.
                     "text": name.capitalize(),
                     # Tel no.
                     "phone_no": tel,
@@ -100,21 +118,21 @@ class Rv_Button(MDFlatButton):
         self, receiver_name: str, phone_no: str, result: str
     ) -> None:
         message = (
-            "Hej "
+            "Hej, "
             + receiver_name
-            + " zobacz moje wyniki w aplikacji "
+            + " - zobacz moje wyniki w aplikacji "
             + const.APP_NAME
             + "."
-            + "\n"
-            + result
         )
 
         if platform == "android":
-            from src.android_helpers import Android_Helpers as an_hlp
-
+            # Android sets up 70 chars limit for non en chars that's why 2 sms'es.
             an_hlp.send_sms(self, tel=phone_no[0], msg=message)
+            an_hlp.send_sms(self, tel=phone_no[0], msg=result)
+            an_hlp.show_toast(self, text="Wiadomość wysłana!")
         else:
             # For non android purposes.
-            print("sms: ", phone_no, message)
+            print("sms1: ", phone_no[0], message)
+            print("sms2: ", result)
         # Results.show_result()
         self.results_obj.show_results()

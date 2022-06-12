@@ -9,9 +9,8 @@ from kivymd.app import MDApp
 import src.constants as const
 from src.db_connection import Db_Connection
 from src.multiplication import Multiply
-from src.ui_helpers import Ui_Helpers
 from src.results import Results
-import src.constants as const
+from src.ui_helpers import Ui_Helpers
 
 
 class Main_App(MDApp):

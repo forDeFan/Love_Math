@@ -8,3 +8,4 @@ log.txt
 dbase.db
 my.db
 log.*
+*-journal

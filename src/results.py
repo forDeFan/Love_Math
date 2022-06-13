@@ -12,14 +12,14 @@ if platform == "android":
 
 
 class Results(Screen):
-    def get_result(self, db: Db_Connection, category: str) -> str:
-        return str(db.get_result(category)[0])
-
     def get_results(self, db: Db_Connection) -> str:
         db_res = db.get_results()
         str_res = ", ".join(
-            map(lambda x: x[0] + " " + str(x[1]), db_res)
+            map(lambda x: x[0] + ": " + str(x[3]) + "%", db_res)
         )
+
+        if " 0%" in str_res:
+            str_res = str_res.replace(" 0%", " n/d")
 
         for i, el in enumerate(const.CATEGORIES):
             if el in str_res:
@@ -51,6 +51,7 @@ class Results(Screen):
         db.update_question_no(category_name=category_name)
         if good_answer:
             db.update_result(category_name)
+        db.update_percent(category_name=category_name)
 
     def hide_results(self) -> None:
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)

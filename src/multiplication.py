@@ -3,11 +3,15 @@ from typing import Tuple
 
 from kivy.clock import Clock
 from kivy.uix.screenmanager import Screen
+from kivy.properties import NumericProperty
 
 from src.ui_helpers import Ui_Helpers as hel
 
 
 class Multiply(Screen):
+
+    mul_q_counter = NumericProperty(1)
+
     def generate_numbers(self) -> Tuple[int, int]:
         num1 = randint(2, 30)
         num2 = randint(2, 9)
@@ -39,6 +43,7 @@ class Multiply(Screen):
         computed_result = int(self.ids.num1.text) * int(
             self.ids.num2.text
         )
+        self.mul_q_counter += 1
 
         if user_result == str(computed_result):
             self.ids.result_label.outline_color = (
@@ -49,7 +54,7 @@ class Multiply(Screen):
             )
             self.ids.result_label.outline_width = "3dp"
             self.ids.result_label.font_size = "30dp"
-            self.ids.result_label.text = "Dobrze :)\n+1 punkt"
+            self.ids.result_label.text = "Dobrze :)"
             hel.hide_widget(self, self.ids.check_button, dohide=True)
             hel.hide_widget(
                 self, self.ids.multiplication_result, dohide=True

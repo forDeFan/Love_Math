@@ -1,10 +1,10 @@
 Results:
     name: "results_screen"
     on_pre_enter: 
-        multiplication_result_label.text = root.get_result(app.db, app.const.CATEGORIES[0])
-        fraction_result_label.text = root.get_result(app.db, app.const.CATEGORIES[1])
-        roman_result_label.text = root.get_result(app.db, app.const.CATEGORIES[2])
-        percent_result_label.text = root.get_result(app.db, app.const.CATEGORIES[3])
+        multiplication_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[0])
+        fraction_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[1])
+        roman_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[2])
+        percent_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[3])
 
     MDBoxLayout:
         orientation: "vertical"

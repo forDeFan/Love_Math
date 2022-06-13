@@ -2,6 +2,7 @@
 
 Multiply:
     name: "multiplication_screen"
+    mul_q_counter: 0
     on_pre_enter: root.set_nums(nums=None)
 
     MDBoxLayout:
@@ -25,13 +26,11 @@ Multiply:
                 orientation: "horizontal"
                 MDLabel:
                     id: score
-                    text: "Punktów: "
+                    text: "Skuteczność:"
                     halign: "center"
-            MDBoxLayout:
-                orientation: "horizontal"
                 MDLabel:
                     id: score_num
-                    text: "0"
+                    text: Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[0])
                     halign: "center"
     
             # Question card.
@@ -105,7 +104,7 @@ Multiply:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: 
                             Factory.Results.update_result(self, app.db, app.const.CATEGORIES[0], root.show_result())
-                            root.ids.score_num.text = Factory.Results.get_result(self, app.db, app.const.CATEGORIES[0])
+                            root.ids.score_num.text = Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[0])
 
         # Bottom NAV.
         MDBottomNavigation:        

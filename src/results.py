@@ -4,8 +4,8 @@ from kivymd.uix.button import MDFlatButton
 
 import src.constants as const
 from src.db_connection import Db_Connection
-from src.ui_helpers import Ui_Helpers as ui_hlp
 from src.os_helpers import Os_Helpers as os_hlp
+from src.ui_helpers import Ui_Helpers as ui_hlp
 
 if platform == "android":
     from src.android_helpers import Android_Helpers as an_hlp
@@ -38,9 +38,17 @@ class Results(Screen):
 
         return str_res + "."
 
+    def get_percentage(self, db: Db_Connection, category: str):
+        per = db.get_percent(category_name=category)
+        if int(per) > 0:
+            return per + "%"
+        else:
+            return "Nie zaczęto"
+
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
     ) -> None:
+        db.update_question_no(category_name=category_name)
         if good_answer:
             db.update_result(category_name)
 
@@ -96,7 +104,7 @@ class Results(Screen):
 
 # Custom button class to be passed to RecycleView obj.
 class Rv_Button(MDFlatButton):
-    def on_press(self):
+    def on_press(self) -> None:
         # Confirm popup before sms.
         ui_hlp.custom_popup(
             self,

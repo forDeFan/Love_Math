@@ -15,11 +15,14 @@ class Results(Screen):
     def get_results(self, db: Db_Connection) -> str:
         db_res = db.get_results()
         str_res = ", ".join(
-            map(lambda x: x[0] + ": " + str(x[3]) + "%", db_res)
+            map(lambda x: x[0] + ": " + str(int(x[3])) + "%", db_res)
         )
 
+        # TODO - sort this out.
         if " 0%" in str_res:
             str_res = str_res.replace(" 0%", " n/d")
+        if " -1" in str_res:
+            str_res = str_res.replace(" -1", " 0")
 
         for i, el in enumerate(const.CATEGORIES):
             if el in str_res:
@@ -42,6 +45,8 @@ class Results(Screen):
         per = db.get_percent(category_name=category)
         if int(per) > 0:
             return per + "%"
+        elif int(per) == -1:
+            return "0%"
         else:
             return "Nie zaczęto"
 
@@ -51,6 +56,7 @@ class Results(Screen):
         db.update_question_no(category_name=category_name)
         if good_answer:
             db.update_result(category_name)
+
         db.update_percent(category_name=category_name)
 
     def hide_results(self) -> None:

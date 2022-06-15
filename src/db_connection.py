@@ -35,7 +35,7 @@ class Db_Connection:
         res = self.cur.execute(
             f"SELECT result FROM results WHERE category='{category_name}'"
         )
-        return res.fetchone()
+        return res.fetchone()[0]
 
     def get_results(self) -> List[Tuple[str, str]]:
         res = self.cur.execute("SELECT * FROM results")
@@ -51,17 +51,16 @@ class Db_Connection:
         res = self.cur.execute(
             f"SELECT qst_no FROM results WHERE category='{category_name}'"
         )
-        return res.fetchone()
+        return res.fetchone()[0]
 
     def update_percent(self, category_name):
-        q_no = self.get_question_no(category_name=category_name)[0]
-        if q_no == 0:
-            q_no += 1
-        res = self.get_result(category_name=category_name)[0]
+        q_no = self.get_question_no(category_name=category_name)
+        res = self.get_result(category_name=category_name)
+
         if q_no and res > 0:
             per = (res / q_no) * 100
         else:
-            per = 0
+            per = -1
         self.cur.execute(
             f"UPDATE results SET percentage='{per}' WHERE category='{category_name}'"
         )

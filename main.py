@@ -14,7 +14,7 @@ from src.ui_helpers import Ui_Helpers
 
 
 class Main_App(MDApp):
-    def build(self):
+    def build(self) -> ScreenManager:
         if platform == "android":
             # Get android permissions if run on android.
             from android.permissions import (
@@ -67,7 +67,7 @@ class Main_App(MDApp):
 
         return self.screen_manager
 
-    def on_stop(self):
+    def on_stop(self) -> None:
         if os.path.isfile(const.DB_NAME):
             os.remove(const.DB_NAME)
 

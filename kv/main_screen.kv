@@ -3,6 +3,7 @@
 MDScreen:
     # Screen name.
     name: "main_screen"
+    on_leave: app.previous_screen = self.name
 
     MDBoxLayout:
         orientation: "vertical"

@@ -4,6 +4,7 @@ Multiply:
     name: "multiplication_screen"
     mul_q_counter: 0
     on_pre_enter: root.set_nums(nums=None)
+    on_leave: app.previous_screen = self.name
 
     MDBoxLayout:
         orientation: "vertical"

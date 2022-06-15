@@ -50,7 +50,11 @@ class Main_App(MDApp):
         # Add global constants.
         self.const = const
 
+        # Add global screen manager.
         self.screen_manager = ScreenManager()
+        # Var used to navigate in kv - to last screen visited.
+        self.previous_screen = ""
+
         # Load main screen at app startup.
         self.screen_manager.add_widget(
             Builder.load_file("kv/main_screen.kv")

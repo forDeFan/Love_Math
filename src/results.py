@@ -41,7 +41,7 @@ class Results(Screen):
 
         return str_res + "."
 
-    def get_percentage(self, db: Db_Connection, category: str):
+    def get_percentage(self, db: Db_Connection, category: str) -> str:
         per = db.get_percent(category_name=category)
         if int(per) > 0:
             return per + "%"

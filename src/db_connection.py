@@ -25,7 +25,7 @@ class Db_Connection:
     def __del__(self):
         self.conn.close()
 
-    def update_result(self, category_name: str):
+    def update_result(self, category_name: str) -> None:
         self.cur.execute(
             f"UPDATE results SET result=result+1 WHERE category='{category_name}'"
         )
@@ -53,7 +53,7 @@ class Db_Connection:
         )
         return res.fetchone()[0]
 
-    def update_percent(self, category_name):
+    def update_percent(self, category_name: str) -> None:
         q_no = self.get_question_no(category_name=category_name)
         res = self.get_result(category_name=category_name)
 
@@ -66,7 +66,7 @@ class Db_Connection:
         )
         self.conn.commit()
 
-    def get_percent(self, category_name):
+    def get_percent(self, category_name: str) -> str:
         res = self.cur.execute(
             f"SELECT percentage FROM results WHERE category='{category_name}'"
         )

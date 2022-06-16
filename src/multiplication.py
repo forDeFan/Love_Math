@@ -2,8 +2,9 @@ from random import randint
 from typing import Tuple
 
 from kivy.clock import Clock
-from kivy.uix.screenmanager import Screen
 from kivy.properties import NumericProperty
+from kivy.uix.screenmanager import Screen
+from kivy.uix.widget import Widget
 
 from src.ui_helpers import Ui_Helpers as hel
 
@@ -28,7 +29,8 @@ class Multiply(Screen):
             self.ids.num2.text = str(nums[1])
 
     def new_multiplication_setup(self):
-        hel.hide_widget(self, self.ids.check_button, dohide=False)
+        hel.disable_widget(wid=self.ids.check_button, is_disabled=False)
+        # hel.hide_widget(self, self.ids.check_button, dohide=False)
         hel.hide_widget(
             self, self.ids.multiplication_result, dohide=False
         )
@@ -55,12 +57,16 @@ class Multiply(Screen):
             self.ids.result_label.outline_width = "3dp"
             self.ids.result_label.font_size = "30dp"
             self.ids.result_label.text = "Dobrze :)"
-            hel.hide_widget(self, self.ids.check_button, dohide=True)
+            hel.disable_widget(
+                wid=self.ids.check_button, is_disabled=True
+            )
+            # hel.hide_widget(self, self.ids.check_button, dohide=True)
             hel.hide_widget(
                 self, self.ids.multiplication_result, dohide=True
             )
             Clock.schedule_once(
-                lambda dt: self.new_multiplication_setup(), 2
+                lambda dt: self.new_multiplication_setup(),
+                2,
             )
             self.set_nums(self.generate_numbers())
             return True
@@ -74,4 +80,14 @@ class Multiply(Screen):
             self.ids.result_label.outline_width = "0.8dp"
             self.ids.result_label.text = "Żle! Spróbuj jeszcze raz"
             self.ids.multiplication_result.text = ""
+            hel.disable_widget(
+                wid=self.ids.check_button, is_disabled=True
+            )
+
+            Clock.schedule_once(
+                lambda dt: hel.disable_widget(
+                    wid=self.ids.check_button, is_disabled=False
+                ),
+                2,
+            )
             return False

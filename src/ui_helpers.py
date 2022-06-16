@@ -10,6 +10,9 @@ from kivy.uix.widget import Widget
 
 
 class Ui_Helpers(Widget):
+    def disable_widget(wid: Widget, is_disabled: bool) -> None:
+        wid.disabled = is_disabled
+
     def hide_widget(self, wid: Widget, dohide=True) -> None:
         if hasattr(wid, "saved_attrs"):
             if not dohide:

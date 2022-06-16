@@ -46,7 +46,7 @@ class Ui_Helpers(Widget):
         exit_popup=False,
         go_main_screen=False,
         confirm=False,
-        action=None,
+        abort_button_action=None,
     ) -> None:
         content_wrapper = BoxLayout(
             orientation="vertical",
@@ -82,13 +82,13 @@ class Ui_Helpers(Widget):
         content_wrapper.add_widget(button_wrapper)
 
         # Bind actions to buttons.
-        if action == None:
+        if abort_button_action == None:
             abort_button.bind(on_press=lambda *args: self.pop.dismiss())
-        if action != None:
+        if abort_button_action != None:
 
             abort_button.bind(
                 on_press=lambda *args: self.pop.dismiss(),
-                on_release=action,
+                on_release=abort_button_action,
             )
 
         if exit_popup:

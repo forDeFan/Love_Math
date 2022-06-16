@@ -127,6 +127,7 @@ class Rv_Button(MDFlatButton):
             exit_popup=False,
             go_main_screen=False,
             confirm=True,
+            action=lambda *args: self.results_obj.show_results(),
         )
 
     def send(

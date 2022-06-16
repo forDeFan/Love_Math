@@ -37,6 +37,7 @@ class Ui_Helpers(Widget):
                 True,
             )
 
+    # TODO refactor/ atomize
     def custom_popup(
         self,
         t_txt: str,
@@ -45,6 +46,7 @@ class Ui_Helpers(Widget):
         exit_popup=False,
         go_main_screen=False,
         confirm=False,
+        action=None,
     ) -> None:
         content_wrapper = BoxLayout(
             orientation="vertical",
@@ -79,8 +81,16 @@ class Ui_Helpers(Widget):
         button_wrapper.add_widget(abort_button)
         content_wrapper.add_widget(button_wrapper)
 
-        # Bind action to buttons.
-        abort_button.bind(on_press=lambda *args: self.pop.dismiss())
+        # Bind actions to buttons.
+        if action == None:
+            abort_button.bind(on_press=lambda *args: self.pop.dismiss())
+        if action != None:
+
+            abort_button.bind(
+                on_press=lambda *args: self.pop.dismiss(),
+                on_release=action,
+            )
+
         if exit_popup:
             confirm_button.bind(on_press=lambda *args: foo.stop())
         if go_main_screen:

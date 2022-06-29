@@ -34,6 +34,11 @@ class Main_App(MDApp):
 
             # Set android communication interface.
             self.phone = Android_Helpers()
+        else:
+            # Simulate mobile screen size (Samsung s10).
+            from kivy.core.window import Window
+
+            Window.size = (360, 760)
 
         # Setup app defaults details.
         self.title = const.APP_NAME

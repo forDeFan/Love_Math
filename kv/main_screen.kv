@@ -3,6 +3,7 @@
 MDScreen:
     # Screen name.
     name: "main_screen"
+    on_enter: nav.switch_tab("menu_tab")
     on_leave: app.previous_screen = self.name
 
     MDBoxLayout:
@@ -46,21 +47,25 @@ MDScreen:
                     halign: "center"
 
         # Bottom NAV.
-        MDBottomNavigation:        
+        MDBottomNavigation:  
+            id: nav      
             size_hint_y: .2
             panel_color: (250/255, 232/255, 238/255, 1)
-            selected_color_background: (1,0,1,1)
+            text_color_normal: (128/255, 128/255, 128/255, 1)
             text_color_active: (1,0,0,1)
             # Current screen.
             MDBottomNavigationItem: 
+                name: "menu_tab"
                 text: "Menu"
                 icon: "backup-restore"
             MDBottomNavigationItem: 
+                name: "results_tab"
                 text: "Twój wynik"
                 text_color: (0,0,0,1)
                 icon: "account"
                 on_tab_press: app.screen_manager.current = "results_screen"
             MDBottomNavigationItem: 
+                name: "quit_tab"
                 text: "Koniec"
                 icon: "exit-run"
                 on_tab_press: 

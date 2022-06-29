@@ -4,6 +4,7 @@ Multiply:
     name: "multiplication_screen"
     mul_q_counter: 0
     on_pre_enter: root.set_nums(nums=None)
+    on_enter: nav.text_color_active = nav.text_color_normal
     on_leave: app.previous_screen = self.name
 
     MDBoxLayout:
@@ -108,21 +109,25 @@ Multiply:
                             root.ids.score_num.text = Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[0])
 
         # Bottom NAV.
-        MDBottomNavigation:        
+        MDBottomNavigation:  
+            id: nav      
             size_hint_y: .2
             panel_color: (250/255, 232/255, 238/255, 1)
-            selected_color_background: (1,0,1,1)
+            text_color_normal: (128/255, 128/255, 128/255, 1)
             text_color_active: (1,0,0,1)
             # Go back to main screen.
             MDBottomNavigationItem: 
+                name: "menu_tab"
                 text: "Menu"
                 icon: "backup-restore"
                 on_tab_press: app.screen_manager.current = "main_screen"
             MDBottomNavigationItem: 
+                name: "results_tab"
                 text: "Twój wynik"
                 icon: "account"
                 on_tab_press: app.screen_manager.current = "results_screen"
             MDBottomNavigationItem: 
+                name: "quit_tab"
                 text: "Koniec"
                 icon: "exit-run"
                 on_tab_press:

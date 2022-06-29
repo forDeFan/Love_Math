@@ -5,6 +5,7 @@ Results:
         fraction_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[1])
         roman_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[2])
         percent_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[3])
+    on_enter: nav.switch_tab("results_tab")
     on_leave: app.previous_screen = self.name
 
     MDBoxLayout:
@@ -99,23 +100,27 @@ Results:
                     on_press: root.show_phone_book(app.db)
                
         # Bottom NAV.
-        MDBottomNavigation:        
+        MDBottomNavigation:     
+            id: nav      
             size_hint_y: .2
             panel_color: (250/255, 232/255, 238/255, 1)
-            selected_color_background: (1,0,1,1)
+            text_color_normal: (128/255, 128/255, 128/255, 1)
             text_color_active: (1,0,0,1)
             # Go back to main screen.
             MDBottomNavigationItem: 
+                name: "menu_tab"
                 text: "Menu"
                 icon: "backup-restore"
                 on_tab_press:app.screen_manager.current = "main_screen"
             # Current screen.
             MDBottomNavigationItem: 
+                name: "results_tab"
                 text: "Twój wynik"
                 text_color: (0,0,0,1)
                 icon: "account"
             # Close the app.
             MDBottomNavigationItem: 
+                name: "quit_tab"
                 text: "Koniec"
                 icon: "exit-run"
                 on_tab_press:

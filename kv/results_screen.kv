@@ -1,3 +1,5 @@
+#: import const src.constants
+
 Results:
     name: "results_screen"
     on_pre_enter: 
@@ -93,7 +95,7 @@ Results:
                     id: send_button
                     text: "wyślij wynik"
                     theme_text_color: "Custom"
-                    text_color: 0, 0, 0, 1
+                    text_color: const.BLACK
                     font_size: "18sp"
                     padding: "20px"
                     pos_hint: {"center_x": .5, "center_y": .5}
@@ -103,9 +105,9 @@ Results:
         MDBottomNavigation:     
             id: nav      
             size_hint_y: .2
-            panel_color: (250/255, 232/255, 238/255, 1)
-            text_color_normal: (128/255, 128/255, 128/255, 1)
-            text_color_active: (1,0,0,1)
+            panel_color: const.PINK
+            text_color_normal: const.GRAY
+            text_color_active: const.RED
             # Go back to main screen.
             MDBottomNavigationItem: 
                 name: "menu_tab"
@@ -116,7 +118,7 @@ Results:
             MDBottomNavigationItem: 
                 name: "results_tab"
                 text: "Twój wynik"
-                text_color: (0,0,0,1)
+                text_color: const.BLACK
                 icon: "account"
             # Close the app.
             MDBottomNavigationItem: 

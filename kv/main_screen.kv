@@ -75,6 +75,6 @@ MDScreen:
                     foo=app, \
                     exit_popup=True, \
                     go_main_screen=False, \
-                    confirm=False)
+                    confirm=False, \
+                    abort_button_action=lambda *args: nav.switch_tab("menu_tab"))
 
-                    

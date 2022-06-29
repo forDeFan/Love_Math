@@ -22,9 +22,7 @@ MDScreen:
             # Multiplication.
             MDCard:
                 ripple_behavior: True
-                on_release: 
-                    app.screen_manager.current = "multiplication_screen"
-                    root.manager.transition.direction = "left"
+                on_release: app.screen_manager.current = "multiplication_screen"
                 MDLabel:
                     text: "Tabliczka Mnożenia"
                     halign: "center"
@@ -57,9 +55,7 @@ MDScreen:
                 text: "Twój wynik"
                 text_color: (0,0,0,1)
                 icon: "account"
-                on_tab_press: 
-                    app.screen_manager.current = "results_screen"
-                    root.manager.transition.direction = "left"
+                on_tab_press: app.screen_manager.current = "results_screen"
             MDBottomNavigationItem: 
                 text: "Wyślij wynik"
                 icon: "send"

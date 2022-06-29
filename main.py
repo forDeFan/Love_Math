@@ -2,7 +2,7 @@ import os
 
 from kivy.factory import Factory
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import NoTransition, ScreenManager
 from kivy.utils import platform
 from kivymd.app import MDApp
 
@@ -51,7 +51,7 @@ class Main_App(MDApp):
         self.const = const
 
         # Add global screen manager.
-        self.screen_manager = ScreenManager()
+        self.screen_manager = ScreenManager(transition=NoTransition())
         # Var used to navigate in kv - to last screen visited.
         self.previous_screen = ""
 

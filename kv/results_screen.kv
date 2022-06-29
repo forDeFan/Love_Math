@@ -108,16 +108,12 @@ Results:
             MDBottomNavigationItem: 
                 text: "Do Menu"
                 icon: "backup-restore"
-                on_tab_press:
-                    app.screen_manager.current = "main_screen"
-                    root.manager.transition.direction = "right"
+                on_tab_press: app.screen_manager.current = "main_screen"
             # Go to previous screen.
             MDBottomNavigationItem: 
                 text: "Powrót"
                 icon: "backburger"
-                on_tab_press: 
-                    app.screen_manager.current = app.previous_screen
-                    root.manager.transition.direction = "right"
+                on_tab_press: app.screen_manager.current = app.previous_screen
             # Close the app.
             MDBottomNavigationItem: 
                 text: "Koniec"

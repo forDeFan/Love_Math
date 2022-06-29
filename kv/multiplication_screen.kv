@@ -117,15 +117,11 @@ Multiply:
             MDBottomNavigationItem: 
                 text: "Do Menu"
                 icon: "backup-restore"
-                on_tab_press:
-                    app.screen_manager.current = "main_screen"
-                    root.manager.transition.direction = "right"
+                on_tab_press: app.screen_manager.current = "main_screen"
             MDBottomNavigationItem: 
                 text: "Twój wynik"
                 icon: "account"
-                on_tab_press:
-                    app.screen_manager.current = "results_screen"
-                    root.manager.transition.direction = "left"
+                on_tab_press: app.screen_manager.current = "results_screen"
             MDBottomNavigationItem: 
                 text: "Koniec"
                 icon: "exit-run"

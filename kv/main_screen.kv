@@ -1,5 +1,4 @@
 #: import Factory kivy.factory.Factory
-#: import const src.constants
 
 MDScreen:
     # Screen name.
@@ -51,9 +50,9 @@ MDScreen:
         MDBottomNavigation:  
             id: nav      
             size_hint_y: .2
-            panel_color: const.PINK
-            text_color_normal: const.GRAY
-            text_color_active: const.RED
+            panel_color: app.const.PINK
+            text_color_normal: app.const.GRAY
+            text_color_active: app.const.RED
             # Current screen.
             MDBottomNavigationItem: 
                 name: "menu_tab"
@@ -62,7 +61,7 @@ MDScreen:
             MDBottomNavigationItem: 
                 name: "results_tab"
                 text: "Twój wynik"
-                text_color: const.BLACK
+                text_color: app.const.BLACK
                 icon: "account"
                 on_tab_press: app.screen_manager.current = "results_screen"
             MDBottomNavigationItem: 

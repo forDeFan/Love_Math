@@ -1,5 +1,4 @@
 #: import Factory kivy.factory.Factory
-#: import const src.constants
 
 Multiply:
     name: "multiplication_screen"
@@ -113,9 +112,9 @@ Multiply:
         MDBottomNavigation:  
             id: nav      
             size_hint_y: .2
-            panel_color: const.PINK
-            text_color_normal: const.GRAY
-            text_color_active: const.RED
+            panel_color: app.const.PINK
+            text_color_normal: app.const.GRAY
+            text_color_active: app.const.RED
             # Go back to main screen.
             MDBottomNavigationItem: 
                 name: "menu_tab"

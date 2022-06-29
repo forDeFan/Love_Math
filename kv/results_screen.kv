@@ -106,14 +106,14 @@ Results:
             text_color_active: (1,0,0,1)
             # Go back to main screen.
             MDBottomNavigationItem: 
-                text: "Do Menu"
+                text: "Menu"
                 icon: "backup-restore"
-                on_tab_press: app.screen_manager.current = "main_screen"
-            # Go to previous screen.
+                on_tab_press:app.screen_manager.current = "main_screen"
+            # Current screen.
             MDBottomNavigationItem: 
-                text: "Powrót"
-                icon: "backburger"
-                on_tab_press: app.screen_manager.current = app.previous_screen
+                text: "Twój wynik"
+                text_color: (0,0,0,1)
+                icon: "account"
             # Close the app.
             MDBottomNavigationItem: 
                 text: "Koniec"

@@ -51,14 +51,15 @@ MDScreen:
             panel_color: (250/255, 232/255, 238/255, 1)
             selected_color_background: (1,0,1,1)
             text_color_active: (1,0,0,1)
+            # Current screen.
+            MDBottomNavigationItem: 
+                text: "Menu"
+                icon: "backup-restore"
             MDBottomNavigationItem: 
                 text: "Twój wynik"
                 text_color: (0,0,0,1)
                 icon: "account"
                 on_tab_press: app.screen_manager.current = "results_screen"
-            MDBottomNavigationItem: 
-                text: "Wyślij wynik"
-                icon: "send"
             MDBottomNavigationItem: 
                 text: "Koniec"
                 icon: "exit-run"

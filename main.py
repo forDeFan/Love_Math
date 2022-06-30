@@ -35,7 +35,7 @@ class Main_App(MDApp):
             # Set android communication interface.
             self.phone = Android_Helpers()
         else:
-            # Simulate mobile screen size (Samsung s10).
+            # Simulate mobile screen size (Samsung s10) if not android.
             from kivy.core.window import Window
 
             Window.size = (360, 760)
@@ -51,7 +51,6 @@ class Main_App(MDApp):
 
         # Start global DB.
         self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)
-
         # Add global constants.
         self.const = const
 

@@ -10,15 +10,33 @@ from src.ui_helpers import Ui_Helpers as hel
 
 
 class Multiply(Screen):
+    """
+    Class for multiplication table.
+    """
 
+    # Number of asked questions.
     mul_q_counter = NumericProperty(1)
 
     def generate_numbers(self) -> Tuple[int, int]:
+        """
+        Generate 2 random numbers for UI to be multiplied.
+        Range of num1 2 - 30
+        Range of num2 2 - 9
+
+        Returns:
+            Tuple[int, int]: [random_num1, random_num2]
+        """
         num1 = randint(2, 30)
         num2 = randint(2, 9)
         return num1, num2
 
     def set_nums(self, nums=None) -> None:
+        """
+        Set numbers from generate_numbers() in UI fields to be multiplied by user.
+
+        Args:
+            nums (_type_, optional): Defaults to None if numbers already in UI fields if fields empty - populate.
+        """
         num1 = self.ids.num1.text
         if num1 == "":
             nums = self.generate_numbers()
@@ -29,6 +47,9 @@ class Multiply(Screen):
             self.ids.num2.text = str(nums[1])
 
     def new_multiplication_setup(self):
+        """
+        If proper answer - clear fields and make new UI setup.
+        """
         hel.disable_widget(wid=self.ids.check_button, is_disabled=False)
         # hel.hide_widget(self, self.ids.check_button, dohide=False)
         hel.hide_widget(
@@ -41,12 +62,19 @@ class Multiply(Screen):
         self.ids.result_label.font_size = "15dp"
 
     def show_result(self) -> bool:
+        """
+        If multiplication correct/ wrong show UI message.
+        If correct fire new_multiplication_setup().
+
+        Returns:
+            bool: to notify Results.update_result()
+        """
         user_result = self.ids.multiplication_result.text
         computed_result = int(self.ids.num1.text) * int(
             self.ids.num2.text
         )
         self.mul_q_counter += 1
-
+        # Good answer.
         if user_result == str(computed_result):
             self.ids.result_label.outline_color = (
                 181 / 255,
@@ -54,6 +82,7 @@ class Multiply(Screen):
                 235 / 255,
                 1,
             )
+            # Show message in UI to the user.
             self.ids.result_label.outline_width = "3dp"
             self.ids.result_label.font_size = "30dp"
             self.ids.result_label.text = "Dobrze :)"
@@ -64,6 +93,7 @@ class Multiply(Screen):
             hel.hide_widget(
                 self, self.ids.multiplication_result, dohide=True
             )
+            # Clear messages, generate new quest.
             Clock.schedule_once(
                 lambda dt: self.new_multiplication_setup(),
                 2,
@@ -71,19 +101,21 @@ class Multiply(Screen):
             self.set_nums(self.generate_numbers())
             return True
         else:
+            # Wrong answer.
             self.ids.result_label.outline_color = (
                 255 / 255,
                 3 / 255,
                 3 / 255,
                 1,
             )
+            # Show message to the user.
             self.ids.result_label.outline_width = "0.8dp"
             self.ids.result_label.text = "Żle! Spróbuj jeszcze raz"
             self.ids.multiplication_result.text = ""
             hel.disable_widget(
                 wid=self.ids.check_button, is_disabled=True
             )
-
+            # Check button.
             Clock.schedule_once(
                 lambda dt: hel.disable_widget(
                     wid=self.ids.check_button, is_disabled=False

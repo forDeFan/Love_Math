@@ -28,15 +28,15 @@ class Results(Screen):
             str: Formatted single string with all results.
         """
         db_res = db.get_results()
-        # Format Tuples into one string with formatting.
+        # Format Tuples into one string.
         str_res = ", ".join(
             map(lambda x: x[0] + ": " + str(int(x[3])) + "%", db_res)
         )
 
-        # TODO - sort this out.
         # If task not started insert "n/d".
         if " 0%" in str_res:
             str_res = str_res.replace(" 0%", " n/d")
+        # TODO - sort this out.
         if " -1" in str_res:
             str_res = str_res.replace(" -1", " 0")
 

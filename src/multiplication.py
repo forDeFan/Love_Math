@@ -11,7 +11,7 @@ from src.ui_helpers import Ui_Helpers as hel
 
 class Multiply(Screen):
     """
-    Class for multiplication table.
+    Class for multiplication table - used in multiplication_screen.kv.
     """
 
     # Number of asked questions.

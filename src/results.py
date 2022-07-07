@@ -14,6 +14,7 @@ if platform == "android":
 class Results(Screen):
     """
     Class to centralize result tracking, calculation, sending.
+    Used in results_screen.kv.
     """
 
     def get_results(self, db: Db_Connection) -> str:

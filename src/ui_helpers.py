@@ -10,10 +10,31 @@ from kivy.uix.widget import Widget
 
 
 class Ui_Helpers(Widget):
+    """
+    Kivi UI custom helpers.
+
+    Args:
+        Widget: needed to be passed to connect with Kivy.
+    """
+
     def disable_widget(wid: Widget, is_disabled: bool) -> None:
+        """
+        Set widget interactable/ non interactable.
+
+        Args:
+            wid (Widget): widget to be disabled
+            is_disabled (bool): enabled/ disbaled.
+        """
         wid.disabled = is_disabled
 
     def hide_widget(self, wid: Widget, dohide=True) -> None:
+        """
+        Show/ hide widget in UI.
+
+        Args:
+            wid (Widget): widget to show/ hide
+            dohide (bool, optional): hide/ show. Defaults to True - hide.
+        """
         if hasattr(wid, "saved_attrs"):
             if not dohide:
                 (
@@ -48,6 +69,18 @@ class Ui_Helpers(Widget):
         confirm=False,
         abort_button_action=None,
     ) -> None:
+        """
+        Custom popup with user complex interaction. Reusable in UI.
+
+        Args:
+            t_txt (str): popup title text.
+            c_txt (str): popup body text.
+            foo (any): function to fire in popup
+            exit_popup (bool, optional): if True - close the app. Defaults to False.
+            go_main_screen (bool, optional): if True go to main_screen of the app. Defaults to False.
+            confirm (bool, optional): if extra confirmation needed ex. at sms sending. Defaults to False.
+            abort_button_action (_type_, optional): if any action needed at popup dismissal if not just close popup. Defaults to None.
+        """
         content_wrapper = BoxLayout(
             orientation="vertical",
             size_hint=(1, 1),
@@ -91,6 +124,7 @@ class Ui_Helpers(Widget):
                 on_release=abort_button_action,
             )
 
+        # Check additional conditions.
         if exit_popup:
             confirm_button.bind(on_press=lambda *args: foo.stop())
         if go_main_screen:
@@ -121,6 +155,17 @@ class Ui_Helpers(Widget):
     def custom_recycle_view(
         self, wid: Widget, rv_row_class: str, data: List[str]
     ) -> RecycleView:
+        """
+        Usage of Kivy Recycle_View class for long list of items.
+
+        Args:
+            wid (Widget): in which the list will be shown.
+            rv_row_class (str): widget class for every item within rv ex. button, card etc.
+            data (List[str]): all data in rv. Item text from List[str].
+
+        Returns:
+            RecycleView: configured recycle_view object.
+        """
         recycle_box = RecycleBoxLayout(
             default_size=(None, 80),
             default_size_hint=(1, None),

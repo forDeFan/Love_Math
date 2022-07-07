@@ -32,10 +32,14 @@ class Multiply(Screen):
 
     def set_nums(self, nums=None) -> None:
         """
-        Set numbers from generate_numbers() in UI fields to be multiplied by user.
+        Set numbers from generate_numbers() in UI at multiplication_screen.kv - to be multiplied by user.
+        Used only when correct answer given or at first app run.
+        If leaving screen or wrong answer - will not populate fields.
 
         Args:
-            nums (_type_, optional): Defaults to None if numbers already in UI fields if fields empty - populate.
+            nums (str(int)): Defaults to None.
+            If nums != None: insert values from nums in UI fields.
+
         """
         num1 = self.ids.num1.text
         if num1 == "":

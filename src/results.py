@@ -12,18 +12,35 @@ if platform == "android":
 
 
 class Results(Screen):
+    """
+    Class to centralize result tracking, calculation, sending.
+    """
+
     def get_results(self, db: Db_Connection) -> str:
+        """
+        Get all results form database formatted into one string.
+        If device default language is polish - change categories name from en to pl.
+
+        Args:
+            db (Db_Connection): database name.
+
+        Returns:
+            str: Formatted single string with all results.
+        """
         db_res = db.get_results()
+        # Format Tuples into one string with formatting.
         str_res = ", ".join(
             map(lambda x: x[0] + ": " + str(int(x[3])) + "%", db_res)
         )
 
         # TODO - sort this out.
+        # If task not started insert "n/d".
         if " 0%" in str_res:
             str_res = str_res.replace(" 0%", " n/d")
         if " -1" in str_res:
             str_res = str_res.replace(" -1", " 0")
 
+        # Change categories names if pl lang.
         for i, el in enumerate(const.CATEGORIES):
             if el in str_res:
                 lang_el = const.CATEGORIES_PL[i].capitalize()
@@ -42,6 +59,16 @@ class Results(Screen):
         return str_res + "."
 
     def get_percentage(self, db: Db_Connection, category: str) -> str:
+        """
+        Get percentage of correct answers from database to be show in result_screen.
+
+        Args:
+            db (Db_Connection): database name.
+            category (str): specified category.
+
+        Returns:
+            str: text to be shown in UI result_screen.
+        """
         per = db.get_percent(category_name=category)
         if int(per) > 0:
             return per + "%"
@@ -53,6 +80,14 @@ class Results(Screen):
     def update_result(
         self, db: Db_Connection, category_name: str, good_answer: bool
     ) -> None:
+        """
+        Update asked questions no, add point if correct answer, update percentage of correct answers - in database.
+
+        Args:
+            db (Db_Connection): database name.
+            category_name (str): specified category.
+            good_answer (bool): if correct answer given.
+        """
         db.update_question_no(category_name=category_name)
         if good_answer:
             db.update_result(category_name)
@@ -60,21 +95,38 @@ class Results(Screen):
         db.update_percent(category_name=category_name)
 
     def hide_results(self) -> None:
+        """
+        Hide result field and check button at results_screen UI.
+        """
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
 
     def show_results(self) -> None:
+        """
+        Show result field and check button at results_screen UI.
+        """
         self.hide_phone_book()
         self.ids.page_label.text = "Twoje wyniki"
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=False)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=False)
 
     def hide_phone_book(self) -> None:
+        """
+        Hide list of devices from device phone book.
+        """
         ui_hlp.hide_widget(self, wid=self.rv, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
 
     def show_phone_book(self, db: Db_Connection) -> None:
+        """
+        Show list phone numbers from device phone book.
+        Buttons with recipient names have functionality
+        of sending sms with results.
+
+        Args:
+            db (Db_Connection): database name from which
+        """
         if platform == "android":
             ph_book = an_hlp.get_ph_book(self)
         else:
@@ -91,7 +143,7 @@ class Results(Screen):
         self.rv = ui_hlp.custom_recycle_view(
             self,
             wid=rv_wrapper,
-            # Custom button class.
+            # Custom button class with sms send functioniality.
             rv_row_class="Rv_Button",
             # Button events for rv.
             data=[
@@ -99,7 +151,7 @@ class Results(Screen):
                     "text": name.capitalize(),
                     # Tel no.
                     "phone_no": tel,
-                    # Global db to be passed to rv_button.
+                    # Global db to be passed to rv_button for results.
                     "db_obj": self.get_results(db),
                     # self = Results. To be passed to rv_button.
                     "results_obj": self,
@@ -109,9 +161,17 @@ class Results(Screen):
         )
 
 
-# Custom button class to be passed to RecycleView obj.
 class Rv_Button(MDFlatButton):
+    """
+    Class for all items in RV list.
+    Custom button to be passed to RecycleView obj.
+    """
+
     def on_press(self) -> None:
+        """
+        Overwirted behaviour of the button.
+        Ui_Helpers.custom_popup() added at sms send confirmation.
+        """
         # Confirm popup before sms.
         ui_hlp.custom_popup(
             self,
@@ -133,6 +193,14 @@ class Rv_Button(MDFlatButton):
     def send(
         self, receiver_name: str, phone_no: str, result: str
     ) -> None:
+        """
+        Send sms to specified person from device phone book with all results.
+
+        Args:
+            receiver_name (str): name from device phone book.
+            phone_no (str): mobile no.
+            result (str): result/ results to be sent in sms.
+        """
         message = (
             "Hej, "
             + receiver_name
@@ -145,6 +213,7 @@ class Rv_Button(MDFlatButton):
             # Android sets up 70 chars limit for non en chars that's why 2 sms'es.
             an_hlp.send_sms(self, tel=phone_no[0], msg=message)
             an_hlp.send_sms(self, tel=phone_no[0], msg=result)
+            # TODO - get confirmation from device.
             an_hlp.show_toast(self, text="Wiadomość wysłana!")
         else:
             # For non android purposes.

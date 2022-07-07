@@ -76,6 +76,9 @@ class Main_App(MDApp):
         return self.screen_manager
 
     def on_stop(self) -> None:
+        """
+        Remove database file from the device when closing app.
+        """
         if os.path.isfile(const.DB_NAME):
             os.remove(const.DB_NAME)
 

@@ -43,9 +43,9 @@ class Multiply(Screen):
         """
         num1 = self.ids.num1.text
         if num1 == "":
-            nums = self.generate_numbers()
-            self.ids.num1.text = str(nums[0])
-            self.ids.num2.text = str(nums[1])
+            first_nums = self.generate_numbers()
+            self.ids.num1.text = str(first_nums[0])
+            self.ids.num2.text = str(first_nums[1])
         elif nums != None:
             self.ids.num1.text = str(nums[0])
             self.ids.num2.text = str(nums[1])

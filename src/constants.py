@@ -1,3 +1,7 @@
+"""
+Static values for centralized app flow.
+"""
+
 APP_NAME = "I LoVE MatH"
 DB_NAME = "my.db"
 APP_LANG = ["pl", "en"]

@@ -11,7 +11,8 @@ from src.ui_helpers import Ui_Helpers as hel
 
 class Multiply(Screen):
     """
-    Class for multiplication table - used in multiplication_screen.kv.
+    Class for multiplication table.
+    Used in multiplication_screen.kv.
     """
 
     # Number of asked questions.
@@ -24,7 +25,7 @@ class Multiply(Screen):
         Range of num2 2 - 9
 
         Returns:
-            Tuple[int, int]: [random_num1, random_num2]
+            Tuple[int, int]: [num1, num2]
         """
         num1 = randint(2, 30)
         num2 = randint(2, 9)
@@ -37,8 +38,9 @@ class Multiply(Screen):
         If leaving screen or wrong answer - will not populate fields.
 
         Args:
-            nums (str(int)): Defaults to None.
-            If nums != None: insert values from nums in UI fields.
+            nums (str(int)):
+                Defaults to None.
+                If nums != None: insert values from nums in UI fields.
 
         """
         num1 = self.ids.num1.text
@@ -52,7 +54,12 @@ class Multiply(Screen):
 
     def new_multiplication_setup(self):
         """
-        If proper answer - clear fields and make new UI setup.
+        Arrange UI of multiplication_screen.kv for new multiplication task.
+
+        Changes params of UI:
+            result_label,
+            multiplication_result,
+            check_button.
         """
         hel.disable_widget(wid=self.ids.check_button, is_disabled=False)
         # hel.hide_widget(self, self.ids.check_button, dohide=False)
@@ -67,11 +74,18 @@ class Multiply(Screen):
 
     def show_result(self) -> bool:
         """
-        If multiplication correct/ wrong show UI message.
-        If correct fire new_multiplication_setup().
+        Notify user in UI multiplication_screen.kv about right/ wrong result.
+        If correct answer fire new_multiplication_setup().
+
+        Changes params of UI:
+            result_label,
+            multiplication_result,
+            check_button.
 
         Returns:
-            bool: to notify Results.update_result()
+            bool (to notify Results.update_result()):
+                True if correct answer,
+                False if wrong answer.
         """
         user_result = self.ids.multiplication_result.text
         computed_result = int(self.ids.num1.text) * int(

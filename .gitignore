@@ -9,3 +9,6 @@ dbase.db
 my.db
 log.*
 *-journal
+tests/__pycache__
+.pytest_cache
+__pycache__

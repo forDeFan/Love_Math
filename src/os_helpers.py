@@ -11,7 +11,7 @@ class Os_Helpers:
         Os default lang check.
 
         Returns:
-            str: in format: "en"
+            str: lang in short format eg. "pl"
         """
         locale.setlocale(locale.LC_ALL, "")
         lang = locale.getlocale(locale.LC_MESSAGES)[0][:-3]

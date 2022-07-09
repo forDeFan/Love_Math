@@ -5,6 +5,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import NoTransition, ScreenManager
 from kivy.utils import platform
 from kivymd.app import MDApp
+from kivy.core.window import Window
 
 import src.constants as const
 from src.db_connection import Db_Connection
@@ -34,10 +35,10 @@ class Main_App(MDApp):
 
             # Set android communication interface.
             self.phone = Android_Helpers()
+            # Add android keyboard hook.
+            Window.bind(on_keyboard=self.on_key)
         else:
             # Simulate mobile screen size (Samsung s10) if not android.
-            from kivy.core.window import Window
-
             Window.size = (360, 760)
 
         # Setup app defaults details.
@@ -81,6 +82,16 @@ class Main_App(MDApp):
         """
         if os.path.isfile(const.DB_NAME):
             os.remove(const.DB_NAME)
+
+    def on_key(self, window, key, *args):
+        # Android back button.
+        if key == 27:
+            if self.previous_screen == "":
+                pass
+                return True
+            if self.screen_manager.current != self.previous_screen:
+                self.screen_manager.current = self.previous_screen
+                return True
 
     # TODO - dark mode ?
     def theme_switch(self, theme: str) -> None:

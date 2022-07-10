@@ -12,9 +12,6 @@ from kivy.uix.widget import Widget
 class Ui_Helpers(Widget):
     """
     Kivi UI custom helpers.
-
-    Args:
-        Widget: needed to be passed to connect with Kivy.
     """
 
     def disable_widget(wid: Widget, is_disabled: bool) -> None:
@@ -23,7 +20,7 @@ class Ui_Helpers(Widget):
 
         Args:
             wid (Widget): widget to be disabled
-            is_disabled (bool): enabled/ disbaled.
+            is_disabled (bool): enabled - True/ disbaled - False.
         """
         wid.disabled = is_disabled
 
@@ -33,7 +30,9 @@ class Ui_Helpers(Widget):
 
         Args:
             wid (Widget): widget to show/ hide
-            dohide (bool, optional): hide/ show. Defaults to True - hide.
+            dohide (bool, optional):
+                hide True/ show False.
+                Defaults to True.
         """
         if hasattr(wid, "saved_attrs"):
             if not dohide:
@@ -70,16 +69,18 @@ class Ui_Helpers(Widget):
         abort_button_action=None,
     ) -> None:
         """
-        Custom popup with user complex interaction. Reusable in UI.
+        Custom popup with user complex interaction. Reusable in kv UI.
 
         Args:
-            t_txt (str): popup title text.
-            c_txt (str): popup body text.
+            t_txt (str): popup title text
+            c_txt (str): popup body text
             foo (any): function to fire in popup
-            exit_popup (bool, optional): if True - close the app. Defaults to False.
-            go_main_screen (bool, optional): if True go to main_screen of the app. Defaults to False.
-            confirm (bool, optional): if extra confirmation needed ex. at sms sending. Defaults to False.
-            abort_button_action (_type_, optional): if any action needed at popup dismissal if not just close popup. Defaults to None.
+            exit_popup (bool): if True - close the app. Defaults to False.
+            go_main_screen (bool): if True go to main_screen of the app. Defaults to False.
+            confirm (bool): if extra confirmation needed ex. at sms sending. Defaults to False.
+            abort_button_action(any):
+                if any action needed at popup dismissal if not just close popup.
+                Defaults to None.
         """
         content_wrapper = BoxLayout(
             orientation="vertical",

@@ -1,11 +1,11 @@
 import os
 
+from kivy.core.window import Window
 from kivy.factory import Factory
 from kivy.lang import Builder
 from kivy.uix.screenmanager import NoTransition, ScreenManager
 from kivy.utils import platform
 from kivymd.app import MDApp
-from kivy.core.window import Window
 
 import src.constants as const
 from src.db_connection import Db_Connection
@@ -84,6 +84,17 @@ class Main_App(MDApp):
             os.remove(const.DB_NAME)
 
     def on_key(self, window, key, *args):
+        """
+        Android keyboard actions.
+
+        Args:
+            window: kivy window object
+            key: pressed keyboard key
+
+        Returns:
+            Bool: if screen allowed (False) or not allowed (True) to close app.
+        """
+        print(str(key))
         # Android back button.
         if key == 27:
             if self.previous_screen == "":

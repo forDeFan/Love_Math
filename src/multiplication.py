@@ -5,8 +5,9 @@ from kivy.clock import Clock
 from kivy.properties import NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivy.uix.widget import Widget
+from kivy.utils import platform
 
-from src.ui_helpers import Ui_Helpers as hel
+from src.ui_helpers import Ui_Helpers as ui_hlp
 
 
 class Multiply(Screen):
@@ -61,9 +62,11 @@ class Multiply(Screen):
             multiplication_result,
             check_button.
         """
-        hel.disable_widget(wid=self.ids.check_button, is_disabled=False)
-        # hel.hide_widget(self, self.ids.check_button, dohide=False)
-        hel.hide_widget(
+        ui_hlp.disable_widget(
+            wid=self.ids.check_button, is_disabled=False
+        )
+        # ui_hlp.hide_widget(self, self.ids.check_button, dohide=False)
+        ui_hlp.hide_widget(
             self, self.ids.multiplication_result, dohide=False
         )
         self.ids.result_label.outline_color = (0, 0, 0, 0)
@@ -71,6 +74,11 @@ class Multiply(Screen):
         self.ids.multiplication_result.text = ""
         self.ids.result_label.text = "Wpisz wynik"
         self.ids.result_label.font_size = "15dp"
+        # Unfocus textfield on android.
+        if platform == "android":
+            from src.android_helpers import Android_Helpers as an_hlp
+
+            an_hlp.unfocuser(self)
 
     def show_result(self) -> bool:
         """
@@ -104,11 +112,11 @@ class Multiply(Screen):
             self.ids.result_label.outline_width = "3dp"
             self.ids.result_label.font_size = "30dp"
             self.ids.result_label.text = "Dobrze :)"
-            hel.disable_widget(
+            ui_hlp.disable_widget(
                 wid=self.ids.check_button, is_disabled=True
             )
-            # hel.hide_widget(self, self.ids.check_button, dohide=True)
-            hel.hide_widget(
+            # ui_hlp.hide_widget(self, self.ids.check_button, dohide=True)
+            ui_hlp.hide_widget(
                 self, self.ids.multiplication_result, dohide=True
             )
             # Clear messages, generate new quest.
@@ -130,12 +138,12 @@ class Multiply(Screen):
             self.ids.result_label.outline_width = "0.8dp"
             self.ids.result_label.text = "Żle! Spróbuj jeszcze raz"
             self.ids.multiplication_result.text = ""
-            hel.disable_widget(
+            ui_hlp.disable_widget(
                 wid=self.ids.check_button, is_disabled=True
             )
             # Check button.
             Clock.schedule_once(
-                lambda dt: hel.disable_widget(
+                lambda dt: ui_hlp.disable_widget(
                     wid=self.ids.check_button, is_disabled=False
                 ),
                 2,

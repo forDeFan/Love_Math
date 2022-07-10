@@ -1,8 +1,10 @@
 from typing import Dict, List
 
+from android.runnable import run_on_ui_thread
+from jnius import autoclass
 from kvdroid.tools import toast
-from kvdroid.tools.lang import device_lang
 from kvdroid.tools.contact import get_contact_details
+from kvdroid.tools.lang import device_lang
 from plyer import sms
 
 
@@ -45,3 +47,16 @@ class Android_Helpers:
             str: returns os lang in LA_la format
         """
         return device_lang()
+
+    @run_on_ui_thread
+    def unfocuser(self, **args):
+        """
+        Unfocus elements eg. textfield, textinput in order
+        to make possible to catch keyboard events later on.
+        If some elements focused - keyboard events blocked by them.
+        """
+        activity = autoclass(
+            "org.kivy.android.PythonActivity"
+        ).mActivity
+        activity.onWindowFocusChanged(False)
+        activity.onWindowFocusChanged(True)

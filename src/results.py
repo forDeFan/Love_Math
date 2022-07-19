@@ -19,14 +19,13 @@ class Results(Screen):
 
     def get_results(self, db: Db_Connection) -> str:
         """
-        Get all results form database formatted into one string.
-        If device default language is polish - change categories name from en to pl.
+        Get all results from database formatted into one string.
 
         Args:
-            db (Db_Connection): database name.
+            db (Db_Connection): database name
 
         Returns:
-            str: Formatted single string with all results.
+            str: Formatted single string with all results
         """
         db_res = db.get_results()
         # Format Tuples into one string.
@@ -61,14 +60,14 @@ class Results(Screen):
 
     def get_percentage(self, db: Db_Connection, category: str) -> str:
         """
-        Get percentage of correct answers from database to be show in result_screen.
+        Get percentage of correct answers from database to be shown in UI of result_screen.kv.
 
         Args:
-            db (Db_Connection): database name.
-            category (str): specified category.
+            db (Db_Connection): database name
+            category (str): specified category
 
         Returns:
-            str: text to be shown in UI result_screen.
+            str: text to be shown in UI of result_screen.kv
         """
         per = db.get_percent(category_name=category)
         if int(per) > 0:
@@ -82,12 +81,15 @@ class Results(Screen):
         self, db: Db_Connection, category_name: str, good_answer: bool
     ) -> None:
         """
-        Update asked questions no, add point if correct answer, update percentage of correct answers - in database.
+        Update results in database:
+            asked questions no,
+            add points if correct answer,
+            percentage of correct answers.
 
         Args:
-            db (Db_Connection): database name.
-            category_name (str): specified category.
-            good_answer (bool): if correct answer given.
+            db (Db_Connection): database name
+            category_name (str): specified category
+            good_answer (bool): True if correct answer given
         """
         db.update_question_no(category_name=category_name)
         if good_answer:
@@ -97,14 +99,14 @@ class Results(Screen):
 
     def hide_results(self) -> None:
         """
-        Hide result field and check button at results_screen UI.
+        Hide result field and check button in UI of results_screen.kv.
         """
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
 
     def show_results(self) -> None:
         """
-        Show result field and check button at results_screen UI.
+        Show result field and check button in UI of results_screen.kv.
         """
         self.hide_phone_book()
         self.ids.page_label.text = "Twoje wyniki"
@@ -113,7 +115,7 @@ class Results(Screen):
 
     def hide_phone_book(self) -> None:
         """
-        Hide list of devices from device phone book.
+        Hide list of persons from device phone book in UI of results_screen.kv.
         """
         ui_hlp.hide_widget(self, wid=self.rv, dohide=True)
         ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
@@ -121,12 +123,13 @@ class Results(Screen):
 
     def show_phone_book(self, db: Db_Connection) -> None:
         """
-        Show list phone numbers from device phone book.
+        Show list of persons from device phone book in UI of results_screen.kv.
+
         Buttons with recipient names have functionality
         of sending sms with results.
 
         Args:
-            db (Db_Connection): database name from which
+            db (Db_Connection): database name
         """
         if platform == "android":
             ph_book = an_hlp.get_ph_book(self)
@@ -170,7 +173,7 @@ class Rv_Button(MDFlatButton):
 
     def on_press(self) -> None:
         """
-        Overwirted behaviour of the button.
+        Overwrited behaviour of the button.
         Ui_Helpers.custom_popup() added at sms send confirmation.
         """
         # Confirm popup before sms.
@@ -198,9 +201,9 @@ class Rv_Button(MDFlatButton):
         Send sms to specified person from device phone book with all results.
 
         Args:
-            receiver_name (str): name from device phone book.
-            phone_no (str): mobile no.
-            result (str): result/ results to be sent in sms.
+            receiver_name (str): name from device phone book
+            phone_no (str): mobile no
+            result (str): result/ results to be sent in sms
         """
         message = (
             "Hej, "

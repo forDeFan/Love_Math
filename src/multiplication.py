@@ -4,7 +4,6 @@ from typing import Tuple
 from kivy.clock import Clock
 from kivy.properties import NumericProperty
 from kivy.uix.screenmanager import Screen
-from kivy.uix.widget import Widget
 from kivy.utils import platform
 
 from src.ui_helpers import Ui_Helpers as ui_hlp

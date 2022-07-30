@@ -110,16 +110,23 @@ class Results(Screen):
         """
         self.hide_phone_book()
         self.ids.page_label.text = "Twoje wyniki"
-        ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=False)
-        ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=False)
+        ui_hlp.hide_widget(
+            self, wid=self.ids.results_box, dohide=False)
+        ui_hlp.hide_widget(
+            self, wid=self.ids.send_button, dohide=False)
 
     def hide_phone_book(self) -> None:
         """
         Hide list of persons from device phone book in UI of results_screen.kv.
         """
-        ui_hlp.hide_widget(self, wid=self.rv, dohide=True)
-        ui_hlp.hide_widget(self, wid=self.ids.results_box, dohide=True)
-        ui_hlp.hide_widget(self, wid=self.ids.send_button, dohide=True)
+        try:
+            ui_hlp.hide_widget(self, wid=self.rv, dohide=True)
+        # If no self.rv
+        except AttributeError:
+            ui_hlp.hide_widget(
+                self, wid=self.ids.results_box, dohide=True)
+            ui_hlp.hide_widget(
+                self, wid=self.ids.send_button, dohide=True)
 
     def show_phone_book(self, db: Db_Connection) -> None:
         """

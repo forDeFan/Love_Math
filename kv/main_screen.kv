@@ -69,12 +69,11 @@ MDScreen:
                 text: "Koniec"
                 icon: "exit-run"
                 on_tab_press: 
-                    Factory.Ui_Helpers().custom_popup( \
+                    Factory.Ui_Helpers.custom_popup( \
+                    self, \
                     t_txt="Potwierdź", \
                     c_txt="Wyniki zostaną utracone.\nMoże najpierw je wyślij.\n\nCzy na pewno wyjść z aplikacji?", \
                     foo=app, \
                     exit_popup=True, \
-                    go_main_screen=False, \
-                    confirm=False, \
                     abort_button_action=lambda *args: nav.switch_tab("menu_tab"))
 

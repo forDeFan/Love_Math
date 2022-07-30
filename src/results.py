@@ -195,8 +195,6 @@ class Rv_Button(MDFlatButton):
                 phone_no=self.phone_no,
                 result=self.db_obj,
             ),
-            exit_popup=False,
-            go_main_screen=False,
             confirm=True,
             abort_button_action=lambda *args: self.results_obj.show_results(),
         )

@@ -73,12 +73,13 @@ class Multiply(Screen):
         self.ids.multiplication_result.text = ""
         self.ids.result_label.text = "Wpisz wynik"
         self.ids.result_label.font_size = "15dp"
-        # Unfocus textfield on android.
+        # Unfocus textfield on android in order to receive key input.
         if platform == "android":
             from src.android_helpers import Android_Helpers as an_hlp
 
             an_hlp.unfocuser(self)
 
+    # TODO extract changing label attributes into separate def
     def show_result(self) -> bool:
         """
         Notify user in UI multiplication_screen.kv about right/ wrong result.

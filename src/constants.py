@@ -1,5 +1,7 @@
 """
 Static values for centralized app flow.
+APP, DB and LANG set up here.
+COLORS set up here.
 """
 
 APP_NAME = "I LoVE MatH"

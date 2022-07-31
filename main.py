@@ -11,6 +11,7 @@ import src.constants as const
 from src.db_connection import Db_Connection
 from src.multiplication import Multiply
 from src.results import Results
+from src.roman_nums import Roman_Nums
 from src.ui_helpers import Ui_Helpers
 
 
@@ -18,10 +19,7 @@ class Main_App(MDApp):
     def build(self) -> ScreenManager:
         if platform == "android":
             # Get android permissions if run on android.
-            from android.permissions import (
-                Permission,
-                request_permissions,
-            )
+            from android.permissions import Permission, request_permissions
 
             request_permissions(
                 [
@@ -49,6 +47,7 @@ class Main_App(MDApp):
         Factory.register(Multiply, "Multiply")
         Factory.register(Ui_Helpers, "Ui_Helpers")
         Factory.register(Results, "Results")
+        Factory.register(Roman_Nums, "Roman_Nums")
 
         # Start global DB.
         self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)
@@ -94,7 +93,6 @@ class Main_App(MDApp):
         Returns:
             Bool: if screen allowed (False) or not allowed (True) to close app.
         """
-        print(str(key))
         # Android back button.
         if key == 27:
             if self.previous_screen == "":

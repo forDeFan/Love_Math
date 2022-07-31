@@ -79,7 +79,7 @@ class Ui_Helpers(Widget):
             go_main_screen (bool): if True go to main_screen of the app. Defaults to False.
             confirm (bool): if extra confirmation needed ex. at sms sending. Defaults to False.
             abort_button_action(any):
-                if any action needed at popup dismissal if not just close popup.
+                if any action needed at popup dismissal if None given - just close popup without further action.
                 Defaults to None.
         """
         content_wrapper = BoxLayout(
@@ -143,6 +143,7 @@ class Ui_Helpers(Widget):
                 on_release=foo,
             )
 
+        # TODO prevent content overflow aoutside popup eg. phone book long names.
         self.pop = Popup(
             title=t_txt,
             title_size=content_wrapper.height / 1.5,

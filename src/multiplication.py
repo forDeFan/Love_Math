@@ -52,6 +52,7 @@ class Multiply(Screen):
             self.ids.num1.text = str(nums[0])
             self.ids.num2.text = str(nums[1])
 
+    # TODO SOLID
     def new_multiplication_setup(self):
         """
         Arrange UI of multiplication_screen.kv for new multiplication task.
@@ -74,7 +75,7 @@ class Multiply(Screen):
         self.ids.result_label.text = "Wpisz wynik"
         self.ids.result_label.font_size = "15dp"
 
-    # TODO extract changing label attributes into separate def
+    # TODO extract changing label attributes into separate def/ SOLID
     def show_result(self) -> bool:
         """
         Notify user in UI multiplication_screen.kv about right/ wrong result.

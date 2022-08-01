@@ -1,0 +1,130 @@
+#: import Factory kivy.factory.Factory
+
+Roman_Nums:
+    name: "roman_nums_screen"
+    roman_q_counter: 0
+    on_pre_enter: root.set_num(num=None)
+    on_enter: nav.text_color_active = nav.text_color_normal
+    on_leave: app.previous_screen = self.name
+
+    MDBoxLayout:
+        orientation: "vertical"
+        # Cards from top position.
+        spacing: root.height/4.5
+
+        MDBoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+            # Page header.    
+            MDLabel:
+                text: "Liczby Rzymskie"
+                font_style: "H4"
+                halign: "center"
+                adaptative_height: False
+            # Total result.
+            MDBoxLayout:
+                orientation: "horizontal"
+                MDLabel:
+                    id: score
+                    text: "Skuteczność:"
+                    halign: "center"
+                MDLabel:
+                    id: score_num
+                    text: Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[3])
+                    halign: "center"
+            
+            # Question card.
+            MDCard:
+                orientation: "vertical"
+                halign: "center"
+                size_hint: None, None
+                size: "300dp", "200dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press: root.show_cheat_sheet()
+                on_release: root.hide_cheat_sheet()
+                MDLabel:
+                    id: roman_label
+                    text: 
+                        "Zamień na cyfy arabskie.\n" \
+                        "(naciśnij po podpowiedź)"
+                    theme_text_color: "Secondary"
+                    halign: "center"
+                MDSeparator:
+                    height: "1dp"
+                MDBoxLayout:
+                    MDLabel:
+                        # Get roman number from Roman_Nums.
+                        id: roman_num
+                        text: ""
+                        font_size: "35dp"
+                        halign: "center"
+            
+            # Result card.
+            MDCard:
+                id: result_card
+                orientation: "vertical"
+                size_hint: None, None
+                size: "300dp", "200dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: "5dp"
+                    MDLabel:
+                        id: result_label
+                        text: "Wpisz cyfry arabskie."
+                        font_size: "15dp"
+                        theme_text_color: "Secondary"
+                        halign: "center"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                MDTextField:
+                    id: roman_result
+                    multiline: False
+                    pos_hint: {"center_y": .5}
+                    halign: "center"
+                    input_type: "number"
+                    font_size: "40dp"
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: "10dp"
+                    # Check result button.
+                    MDRaisedButton:
+                        id: check_button
+                        text: "Sprawdź !"
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        size: "80dp", "50dp"
+                        size_hint: None, None 
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_press: 
+                            Factory.Results.update_result(self, app.db, app.const.CATEGORIES[3], root.show_result())
+                            root.ids.score_num.text = Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[3])
+
+        # Bottom NAV.
+        MDBottomNavigation:  
+            id: nav      
+            size_hint_y: .2
+            panel_color: app.const.PINK
+            text_color_normal: app.const.GRAY
+            text_color_active: app.const.RED
+            MDBottomNavigationItem: 
+                name: "menu_tab"
+                text: "Menu"
+                icon: "backup-restore"
+                on_tab_press: app.screen_manager.current = "main_screen"
+            MDBottomNavigationItem: 
+                name: "results_tab"
+                text: "Twój wynik"
+                icon: "account"
+                on_tab_press: app.screen_manager.current = "results_screen"
+            MDBottomNavigationItem: 
+                name: "quit_tab"
+                text: "Koniec"
+                icon: "exit-run"
+                on_tab_press:
+                    Factory.Ui_Helpers.custom_popup( \
+                    self, \
+                    t_txt="Potwierdź", \
+                    c_txt="Wyniki zostaną utracone.\nMoże najpierw je wyślij.\n\nCzy na pewno wyjść z aplikacji?", \
+                    foo=app, \
+                    exit_popup=True)

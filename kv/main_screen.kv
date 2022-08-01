@@ -42,6 +42,7 @@ MDScreen:
             # Roman Numbers.
             MDCard:
                 ripple_behavior: True
+                on_release: app.screen_manager.current = "roman_nums_screen"
                 MDLabel:
                     text: "Cyfry rzymskie"
                     halign: "center"
@@ -76,4 +77,3 @@ MDScreen:
                     foo=app, \
                     exit_popup=True, \
                     abort_button_action=lambda *args: nav.switch_tab("menu_tab"))
-

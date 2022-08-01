@@ -187,7 +187,7 @@ class Rv_Button(MDFlatButton):
         ui_hlp.custom_popup(
             self,
             t_txt="Potwierdź",
-            c_txt="Czy wysłać wynik do "
+            c_txt="Czy wysłać wynik do\n"
             + self.text.capitalize()
             + " ?",
             foo=lambda *args: self.send(

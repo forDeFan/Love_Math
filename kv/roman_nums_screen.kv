@@ -40,8 +40,17 @@ Roman_Nums:
                 size_hint: None, None
                 size: "300dp", "200dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
-                on_press: root.show_cheat_sheet()
-                on_release: root.hide_cheat_sheet()
+                on_press: 
+                    Factory.Ui_Helpers.change_wid_text(\
+                    self, \
+                    wid=roman_label, \
+                    text="PODPOWIEDŹ\nSymbol:  I   V   X    L     C      D       M" \
+                    + "\nWartość:   1  5  10  50  100  500  1000")
+                on_release: 
+                    Factory.Ui_Helpers.change_wid_text(\
+                    self, \
+                    wid=roman_label, \
+                    text="Zamień na cyfy arabskie.\n(naciśnij po podpowiedź)")
                 MDLabel:
                     id: roman_label
                     text: 

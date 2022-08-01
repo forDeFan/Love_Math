@@ -52,17 +52,6 @@ class Roman_Nums(Screen):
         else:
             return False
 
-    # TODO SOLID.
-    def show_cheat_sheet(self) -> None:
-        label = self.ids.roman_label
-        label.text = ("PODPOWIEDŹ\n" + "\nSymbol:  I   V   X    L     C      D       M" +
-                      "\nWartość:   1  5  10  50  100  500  1000")
-
-    def hide_cheat_sheet(self) -> None:
-        label = self.ids.roman_label
-        label.text = ("Zamień na cyfy arabskie.\n" +
-                      "(naciśnij po podpowiedź)")
-
     # TODO extract changing label attributes into separate def/ SOLID.
     def show_result(self) -> bool:
         # Unfocus textfield on android in order to receive key input.

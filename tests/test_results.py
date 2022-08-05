@@ -1,4 +1,3 @@
-
 import pytest
 from pytest_mock import mocker
 from src.results import Results

@@ -12,7 +12,7 @@ from src.db_connection import Db_Connection
 from src.multiplication import Multiply
 from src.results import Results
 from src.roman_nums import Roman_Nums
-from src.ui_helpers import Ui_Helpers
+from src.helpers.ui_helpers import Ui_Helpers
 
 
 class Main_App(MDApp):
@@ -29,7 +29,7 @@ class Main_App(MDApp):
                     Permission.SEND_SMS,
                 ]
             )
-            from src.android_helpers import Android_Helpers
+            from src.helpers.android_helpers import Android_Helpers
 
             # Set android communication interface.
             self.phone = Android_Helpers()

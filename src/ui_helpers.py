@@ -57,15 +57,21 @@ class Ui_Helpers(Widget):
                 True,
             )
 
-    def change_wid_text(self, wid: Widget, text: str) -> None:
+    def change_wid_text(self, wid: Widget, new_text: str) -> None:
         """
         Change text of selected widget.
 
         Args:
-            wid (Widget): widget to chenge text
-            text (str): text to be insert
+            wid (Widget): widget to change text to
+            new_text (str): new text to be insert
         """
-        wid.text = text
+        wid.text = new_text
+
+    def change_label_ui(self, label: Widget, l_col: str, l_out_wid: str, l_txt: str, l_f_size: str):
+        label.outline_color = l_col
+        label.outline_width = l_out_wid
+        label.text = l_txt
+        label.font_size = l_f_size
 
     # TODO refactor/ atomize
     def custom_popup(

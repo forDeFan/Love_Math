@@ -20,4 +20,4 @@ PINK = (250 / 255, 232 / 255, 238 / 255, 1)
 GREEN = (181 / 255, 255 / 255, 235 / 255, 1)
 # Screens setup at app start - can set up ranges before app start.
 ROMAN_NUMBERS_SCREEN_RANGE = (1, 1500)
-MULTIPLICATION_SCREEN_RANGE = [(2, 30), (2, 9)]
+MULTIPLICATION_SCREEN_RANGE = ((2, 30), (2, 9))

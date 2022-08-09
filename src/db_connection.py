@@ -1,10 +1,13 @@
 import sqlite3
 from typing import List, Tuple
 
+from src.abstract.db_connection_abstract import Abstract_db
 
-class Db_Connection:
+
+class Db_Connection(Abstract_db):
     """
-    Database service class.
+    Sqlite3 database service class.
+    Implementation of Abstract_db class.
     """
 
     def __init__(self, db_name: str, categories: List[str]) -> None:
@@ -33,7 +36,7 @@ class Db_Connection:
 
         self.conn.commit()
 
-    def __del__(self):
+    def __del__(self) -> None:
         """
         Remove database at exit from app.
         """

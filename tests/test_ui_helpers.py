@@ -1,7 +1,7 @@
 import pytest
 from pytest_mock import mocker
 
-from src.ui_helpers import Ui_Helpers
+from src.helpers.ui_helpers import Ui_Helpers
 
 
 class Test_Ui_Helpers:

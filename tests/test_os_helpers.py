@@ -1,9 +1,9 @@
 from pytest_mock import mocker
-from src.os_helpers import Os_Helpers
+from src.helpers.os_helpers import Os_Helpers
 
 
 class Test_Os_Helpers:
-    
+
     def test_if_short_lang_name_returned(self):
         lang = Os_Helpers.check_lang(Os_Helpers)
 
@@ -11,7 +11,7 @@ class Test_Os_Helpers:
 
     def test_if_pl_lang_detected(self):
         pl_lang = Os_Helpers.check_lang(Os_Helpers)
-        
+
         assert pl_lang == "pl"
 
     def test_if_en_lang_detected(self, mocker):

@@ -25,6 +25,9 @@ class Abstract_db(ABC):
     def __del__(self) -> None:
         """
         Remove database at exit from app.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
@@ -35,6 +38,9 @@ class Abstract_db(ABC):
 
         Args:
             category_name (str): specified category.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
@@ -48,6 +54,9 @@ class Abstract_db(ABC):
 
         Returns:
             str: points for specified category.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
@@ -58,6 +67,9 @@ class Abstract_db(ABC):
 
         Returns:
             List[Tuple[str, str]]: List of Tuples[category, points]
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
@@ -68,6 +80,9 @@ class Abstract_db(ABC):
 
         Args:
             category_name (str): specified category.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
@@ -81,6 +96,9 @@ class Abstract_db(ABC):
 
         Returns:
             str: number of asked questions in specified category.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
@@ -91,18 +109,24 @@ class Abstract_db(ABC):
 
         Args:
             category_name (str): specified category.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError
 
     @abstractmethod
     def get_percent(self, category_name: str) -> str:
         """
-        Get percentage of properly answered questions from database in spefied catgeory.
+        Get percentage of properly answered questions from database in spefied category.
 
         Args:
             category_name (str): specified category.
 
         Returns:
             str: percentage of correct answers.
+
+        Raises:
+            NotImplementedError
         """
         raise NotImplementedError

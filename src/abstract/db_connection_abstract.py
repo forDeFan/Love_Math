@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Tuple
 
 
-class Abstract_db(ABC):
+class Abstract_Db(ABC):
     """
     Abstract class for database implementation.
     """
@@ -15,21 +15,15 @@ class Abstract_db(ABC):
         Args:
             db_name (str): database filename.
             categories (List[str]): from constants - to automatically fill out db columns.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def __del__(self) -> None:
         """
         Remove database at exit from app.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def update_result(self, category_name: str) -> None:
@@ -38,11 +32,8 @@ class Abstract_db(ABC):
 
         Args:
             category_name (str): specified category.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def get_result(self, category_name: str) -> str:
@@ -54,11 +45,8 @@ class Abstract_db(ABC):
 
         Returns:
             str: points for specified category.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def get_results(self) -> List[Tuple[str, str]]:
@@ -67,11 +55,8 @@ class Abstract_db(ABC):
 
         Returns:
             List[Tuple[str, str]]: List of Tuples[category, points]
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def update_question_no(self, category_name: str) -> None:
@@ -80,11 +65,8 @@ class Abstract_db(ABC):
 
         Args:
             category_name (str): specified category.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def get_question_no(self, category_name: str) -> str:
@@ -96,11 +78,8 @@ class Abstract_db(ABC):
 
         Returns:
             str: number of asked questions in specified category.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def update_percent(self, category_name: str) -> None:
@@ -109,11 +88,8 @@ class Abstract_db(ABC):
 
         Args:
             category_name (str): specified category.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
     def get_percent(self, category_name: str) -> str:
@@ -125,8 +101,5 @@ class Abstract_db(ABC):
 
         Returns:
             str: percentage of correct answers.
-
-        Raises:
-            NotImplementedError
         """
-        raise NotImplementedError
+        pass

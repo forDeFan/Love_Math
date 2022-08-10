@@ -3,12 +3,12 @@ from kivy.utils import platform
 from kivymd.uix.button import MDFlatButton
 
 import src.constants as const
-from src.db_connection import Db_Connection
-from src.os_helpers import Os_Helpers as os_hlp
-from src.ui_helpers import Ui_Helpers as ui_hlp
+from src.abstract.db_connection_abstract import Abstract_db
+from src.helpers.os_helpers import Os_Helpers as os_hlp
+from src.helpers.ui_helpers import Ui_Helpers as ui_hlp
 
 if platform == "android":
-    from src.android_helpers import Android_Helpers as an_hlp
+    from src.helpers.android_helpers import Android_Helpers as an_hlp
 
 
 class Results(Screen):
@@ -17,12 +17,12 @@ class Results(Screen):
     Used in results_screen.kv.
     """
 
-    def get_results(self, db: Db_Connection) -> str:
+    def get_results(self, db: Abstract_db) -> str:
         """
         Get all results from database formatted into one string.
 
         Args:
-            db (Db_Connection): database name
+            db: database service class object
 
         Returns:
             str: Formatted single string with all results
@@ -58,12 +58,12 @@ class Results(Screen):
 
         return str_res + "."
 
-    def get_percentage(self, db: Db_Connection, category: str) -> str:
+    def get_percentage(self, db: Abstract_db, category: str) -> str:
         """
         Get percentage of correct answers from database to be shown in UI of result_screen.kv.
 
         Args:
-            db (Db_Connection): database name
+            db: database service class object
             category (str): specified category
 
         Returns:
@@ -78,7 +78,7 @@ class Results(Screen):
             return "Nie zaczęto"
 
     def update_result(
-        self, db: Db_Connection, category_name: str, good_answer: bool
+        self, db, category_name: str, good_answer: bool
     ) -> None:
         """
         Update results in database:
@@ -87,7 +87,7 @@ class Results(Screen):
             percentage of correct answers.
 
         Args:
-            db (Db_Connection): database name
+            db: database service class object
             category_name (str): specified category
             good_answer (bool): True if correct answer given
         """
@@ -128,7 +128,7 @@ class Results(Screen):
             ui_hlp.hide_widget(
                 self, wid=self.ids.send_button, dohide=True)
 
-    def show_phone_book(self, db: Db_Connection) -> None:
+    def show_phone_book(self, db: Abstract_db) -> None:
         """
         Show list of persons from device phone book in UI of results_screen.kv.
 
@@ -136,7 +136,7 @@ class Results(Screen):
         of sending sms with results.
 
         Args:
-            db (Db_Connection): database name
+            db: database service class object
         """
         if platform == "android":
             ph_book = an_hlp.get_ph_book(self)
@@ -163,7 +163,7 @@ class Results(Screen):
                     # Tel no.
                     "phone_no": tel,
                     # Global db to be passed to rv_button for results.
-                    "db_obj": self.get_results(db),
+                    "db_obj": self.get_results(db=db),
                     # self = Results. To be passed to rv_button.
                     "results_obj": self,
                 }

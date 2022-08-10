@@ -1,10 +1,10 @@
 import sqlite3
 from typing import List, Tuple
 
-from src.abstract.db_connection_abstract import Abstract_db
+from src.abstract.db_connection_abstract import Abstract_Db
 
 
-class Db_Connection(Abstract_db):
+class Db_Connection(Abstract_Db):
     """
     Sqlite3 database service class.
     Implementation of Abstract_db class.

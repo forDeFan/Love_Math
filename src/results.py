@@ -3,7 +3,7 @@ from kivy.utils import platform
 from kivymd.uix.button import MDFlatButton
 
 import src.constants as const
-from src.abstract.db_connection_abstract import Abstract_db
+from src.abstract.db_connection_abstract import Abstract_Db
 from src.helpers.os_helpers import Os_Helpers as os_hlp
 from src.helpers.ui_helpers import Ui_Helpers as ui_hlp
 
@@ -17,7 +17,7 @@ class Results(Screen):
     Used in results_screen.kv.
     """
 
-    def get_results(self, db: Abstract_db) -> str:
+    def get_results(self, db: Abstract_Db) -> str:
         """
         Get all results from database formatted into one string.
 
@@ -58,7 +58,7 @@ class Results(Screen):
 
         return str_res + "."
 
-    def get_percentage(self, db: Abstract_db, category: str) -> str:
+    def get_percentage(self, db: Abstract_Db, category: str) -> str:
         """
         Get percentage of correct answers from database to be shown in UI of result_screen.kv.
 
@@ -128,7 +128,7 @@ class Results(Screen):
             ui_hlp.hide_widget(
                 self, wid=self.ids.send_button, dohide=True)
 
-    def show_phone_book(self, db: Abstract_db) -> None:
+    def show_phone_book(self, db: Abstract_Db) -> None:
         """
         Show list of persons from device phone book in UI of results_screen.kv.
 

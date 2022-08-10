@@ -3,7 +3,7 @@
 Multiply:
     name: "multiplication_screen"
     mul_q_counter: 0
-    on_pre_enter: root.set_nums(nums=None)
+    on_pre_enter: root.set_num(ids_to_set=[num1, num2])
     on_enter: nav.text_color_active = nav.text_color_normal
     on_leave: app.previous_screen = self.name
 
@@ -22,7 +22,6 @@ Multiply:
                 font_style: "H4"
                 halign: "center"
                 adaptative_height: False
-        
             # Total result.
             MDBoxLayout:
                 orientation: "horizontal"
@@ -32,9 +31,12 @@ Multiply:
                     halign: "center"
                 MDLabel:
                     id: score_num
-                    text: Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[0])
+                    text: 
+                        Factory.Results.get_percentage(\
+                        self, \
+                        app.db, \
+                        app.const.CATEGORIES[0])
                     halign: "center"
-    
             # Question card.
             MDCard:
                 orientation: "vertical"
@@ -66,7 +68,6 @@ Multiply:
                         text: ""
                         font_size: "55dp"
                         halign: "center"
-            
             # Result card.
             MDCard:
                 id: result_card
@@ -105,9 +106,11 @@ Multiply:
                         size_hint: None, None 
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: 
-                            Factory.Results.update_result(self, app.db, app.const.CATEGORIES[0], root.show_result())
-                            root.ids.score_num.text = Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[0])
+                            Factory.Results.update_result(self, app.db, app.const.CATEGORIES[0], root.show_result( \
+                            num_ids=[num1, num2], \
+                            nums_range=app.const.MULTIPLICATION_SCREEN_RANGE))
 
+                            root.ids.score_num.text = Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[0])
         # Bottom NAV.
         MDBottomNavigation:  
             id: nav      
@@ -137,4 +140,3 @@ Multiply:
                     c_txt="Wyniki zostaną utracone.\nMoże najpierw je wyślij.\n\nCzy na pewno wyjść z aplikacji?", \
                     foo=app, \
                     exit_popup=True)
-

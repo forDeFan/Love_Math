@@ -158,13 +158,11 @@ class Multiply(Calculation_Abstract, Screen):
         user_result = self.ids.multiplication_result.text
         computed_result = int(num_ids[0].text) * int(num_ids[1].text)
         self.mul_q_counter += 1
-        # Good answer.
         if user_result == str(computed_result):
             self.good_answer()
             self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
                 nums_range=nums_range))
             return True
-        # Wrong answer.
         else:
             self.wrong_answer()
             return False

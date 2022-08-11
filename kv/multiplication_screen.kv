@@ -2,7 +2,7 @@
 
 Multiply:
     name: "multiplication_screen"
-    mul_q_counter: 0
+    asked_question_no: 0
     on_pre_enter: root.set_num(ids_to_set=[num1, num2])
     on_enter: nav.text_color_active = nav.text_color_normal
     on_leave: app.previous_screen = self.name

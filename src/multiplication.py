@@ -17,8 +17,8 @@ class Multiply(Calculation_Abstract, Screen):
     Used in multiplication_screen.kv.
     """
 
-    # Number of asked questions - taken from kv file.
-    mul_q_counter = NumericProperty(1)
+    # Taken from kv file.
+    asked_question_no = NumericProperty(1)
 
     def generate_num(self, nums_range: Tuple[Tuple[int, int], Tuple[int, int]]) -> Tuple[int, int]:
         """
@@ -157,7 +157,8 @@ class Multiply(Calculation_Abstract, Screen):
 
         user_result = self.ids.multiplication_result.text
         computed_result = int(num_ids[0].text) * int(num_ids[1].text)
-        self.mul_q_counter += 1
+        self.asked_question_no += 1
+
         if user_result == str(computed_result):
             self.good_answer()
             self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(

@@ -1,17 +1,16 @@
 from random import randint
 from typing import Tuple
 
-from kivy.clock import Clock
 from kivy.properties import NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivy.utils import platform
 
 import src.constants as const
-from src.helpers.ui_helpers import Ui_Helpers as ui_hlp
 from src.abstract.calculation_abstract import Calculation_Abstract
+from src.answer_checker import Answer_Checker
 
 
-class Multiply(Calculation_Abstract, Screen):
+class Multiply(Calculation_Abstract, Screen, Answer_Checker):
     """
     Class for multiplication table.
     Used in multiplication_screen.kv.
@@ -63,72 +62,6 @@ class Multiply(Calculation_Abstract, Screen):
             num1.text = str(generated_nums[0])
             num2.text = str(generated_nums[1])
 
-    def good_answer(self) -> None:
-        """
-        If good answer change UI in multiplication_screen.kv.
-
-        Affect UI elements with id's:
-            result_label
-            check_button
-            multiplication_result
-        """
-        ui_hlp.change_label_ui(self, label=self.ids.result_label, l_col=const.GREEN,
-                               l_out_wid="3dp", l_txt="Dobrze :)", l_f_size="30dp")
-        ui_hlp.disable_widget(
-            wid=self.ids.check_button, is_disabled=True
-        )
-        ui_hlp.hide_widget(
-            self, self.ids.multiplication_result, dohide=True
-        )
-        # Clear messages, generate new quest.
-        Clock.schedule_once(
-            lambda dt: self.new_ui_setup(),
-            2,
-        )
-
-    def wrong_answer(self) -> None:
-        """
-        If wrong answer change UI in multiplication_screen.kv.
-
-        Affect UI elements with id's:
-            result_label
-            check_button
-            multiplication_result.text
-        """
-        ui_hlp.change_label_ui(self, label=self.ids.result_label, l_col=const.RED,
-                               l_out_wid="0.8dp", l_txt="Żle! Spróbuj jeszcze raz", l_f_size="20dp")
-        self.ids.multiplication_result.text = ""
-        ui_hlp.disable_widget(
-            wid=self.ids.check_button, is_disabled=True
-        )
-        # Check button enable.
-        Clock.schedule_once(
-            lambda dt: ui_hlp.disable_widget(
-                wid=self.ids.check_button, is_disabled=False
-            ),
-            2,
-        )
-
-    def new_ui_setup(self) -> None:
-        """
-        Arrange UI of multiplication_screen.kv for new multiplication task.
-        Strongly conneccted with sreen ids.
-
-        Changes params of UI:
-            result_label,
-            multiplication_result,
-            check_button.
-        """
-        ui_hlp.disable_widget(
-            wid=self.ids.check_button, is_disabled=False
-        )
-        ui_hlp.hide_widget(
-            self, self.ids.multiplication_result, dohide=False
-        )
-        ui_hlp.change_label_ui(self, label=self.ids.result_label, l_col=const.BLACK,
-                               l_out_wid="0dp", l_txt="Wpisz wynik", l_f_size="15dp")
-        self.ids.multiplication_result.text = ""
-
     def show_result(self, num_ids: Tuple[str, str], nums_range: Tuple[Tuple[int, int], Tuple[int, int]]) -> bool:
         """
         Notify user in UI multiplication_screen.kv about right/ wrong result.
@@ -155,14 +88,14 @@ class Multiply(Calculation_Abstract, Screen):
 
             an_hlp.unfocuser(self)
 
-        user_result = self.ids.multiplication_result.text
+        user_result = self.ids.result_text.text
         computed_result = int(num_ids[0].text) * int(num_ids[1].text)
         self.asked_question_no += 1
 
         if user_result == str(computed_result):
-            self.good_answer()
             self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
                 nums_range=nums_range))
+            self.good_answer()
             return True
         else:
             self.wrong_answer()

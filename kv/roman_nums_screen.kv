@@ -2,8 +2,8 @@
 
 Roman_Nums:
     name: "roman_nums_screen"
-    roman_q_counter: 0
-    on_pre_enter: root.set_num(num=None)
+    asked_question_no: 0
+    on_pre_enter: root.set_num(ids_to_set=roman_num)
     on_enter: nav.text_color_active = nav.text_color_normal
     on_leave: app.previous_screen = self.name
 
@@ -30,7 +30,11 @@ Roman_Nums:
                     halign: "center"
                 MDLabel:
                     id: score_num
-                    text: Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[3])
+                    text: 
+                        Factory.Results.get_percentage( \
+                        self, \
+                        app.db, \
+                        app.const.CATEGORIES[3])
                     halign: "center"
             
             # Question card.
@@ -41,16 +45,21 @@ Roman_Nums:
                 size: "300dp", "200dp"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_press: 
-                    Factory.Ui_Helpers.change_wid_text(\
+                    Factory.Ui_Helpers.change_wid_text( \
                     self, \
                     wid=roman_label, \
-                    text="PODPOWIEDŹ\nSymbol:  I   V   X    L     C      D       M" \
+                    new_text="PODPOWIEDŹ\nSymbol:  I   V   X    L     C      D       M" \
                     + "\nWartość:   1  5  10  50  100  500  1000")
                 on_release: 
-                    Factory.Ui_Helpers.change_wid_text(\
+                    Factory.Ui_Helpers.change_wid_text( \
                     self, \
                     wid=roman_label, \
-                    text="Zamień na cyfy arabskie.\n(naciśnij po podpowiedź)")
+                    new_text="Zamień na cyfy arabskie.\n(naciśnij po podpowiedź)")
+                on_leave:
+                    Factory.Ui_Helpers.change_wid_text( \
+                    self, \
+                    wid=roman_label, \
+                    new_text="Zamień na cyfy arabskie.\n(naciśnij po podpowiedź)")
                 MDLabel:
                     id: roman_label
                     text: 
@@ -87,7 +96,7 @@ Roman_Nums:
                         size_hint_y: None
                         height: self.texture_size[1]
                 MDTextField:
-                    id: roman_result
+                    id: result_text
                     multiline: False
                     pos_hint: {"center_y": .5}
                     halign: "center"
@@ -106,8 +115,16 @@ Roman_Nums:
                         size_hint: None, None 
                         pos_hint: {"center_x": .5, "center_y": .5}
                         on_press: 
-                            Factory.Results.update_result(self, app.db, app.const.CATEGORIES[3], root.show_result())
-                            root.ids.score_num.text = Factory.Results.get_percentage(self, app.db, app.const.CATEGORIES[3])
+                            Factory.Results.update_result( \
+                            self, \
+                            app.db, \
+                            app.const.CATEGORIES[3], \
+                            root.show_result(ids_to_set=roman_num, nums_range=app.const.ROMAN_NUMBERS_SCREEN_RANGE))
+                            
+                            root.ids.score_num.text = Factory.Results.get_percentage( \
+                            self, \
+                            app.db, \
+                            app.const.CATEGORIES[3])
 
         # Bottom NAV.
         MDBottomNavigation:  

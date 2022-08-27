@@ -11,7 +11,7 @@ from kivy.uix.widget import Widget
 
 class Ui_Helpers(Widget):
     """
-    Kivi UI custom helpers.
+    Kivy UI custom helpers.
     """
 
     def disable_widget(wid: Widget, is_disabled: bool) -> None:

@@ -1,6 +1,6 @@
 from kivy.clock import Clock
 
-import src.constants as const
+import src.helpers.constants as const
 from src.helpers.ui_helpers import Ui_Helpers as ui_hlp
 
 

@@ -2,7 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.utils import platform
 from kivymd.uix.button import MDFlatButton
 
-import src.constants as const
+import src.helpers.constants as const
 from src.abstract.db_connection_abstract import Abstract_Db
 from src.helpers.os_helpers import Os_Helpers as os_hlp
 from src.helpers.ui_helpers import Ui_Helpers as ui_hlp

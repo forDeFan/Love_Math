@@ -5,7 +5,7 @@ from kivy.properties import NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivy.utils import platform
 
-import src.constants as const
+import src.helpers.constants as const
 from src.abstract.calculation_abstract import Calculation_Abstract
 from src.answer_checker import Answer_Checker
 

@@ -7,7 +7,7 @@ from kivy.uix.screenmanager import NoTransition, ScreenManager
 from kivy.utils import platform
 from kivymd.app import MDApp
 
-import src.constants as const
+import src.helpers.constants as const
 from src.add_substract import Add_Substract
 from src.db_connection import Db_Connection
 from src.helpers.ui_helpers import Ui_Helpers

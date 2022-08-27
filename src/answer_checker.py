@@ -39,6 +39,25 @@ class Answer_Checker:
             2,
         )
 
+    def wrong_value(self):
+        ui_hlp.change_label_ui(self, label=self.ids.result_label, l_col=const.RED,
+                               l_out_wid="0.8dp", l_txt="Tylko liczba!", l_f_size="20dp")
+        self.ids.result_text.text = ""
+        ui_hlp.disable_widget(
+            wid=self.ids.check_button, is_disabled=True
+        )
+        # Check button enable.
+        Clock.schedule_once(
+            lambda dt: ui_hlp.disable_widget(
+                wid=self.ids.check_button, is_disabled=False
+            ),
+            1,
+        )
+        Clock.schedule_once(
+            lambda dt: self.new_ui_setup(),
+            1,
+        )
+
     def new_ui_setup(self) -> None:
         """
         Arrange UI of kv screen for new task.

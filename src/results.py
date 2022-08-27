@@ -78,7 +78,7 @@ class Results(Screen):
             return "Nie zaczęto"
 
     def update_result(
-        self, db, category_name: str, good_answer: bool
+        self, db: Abstract_Db, category_name: str, good_answer: bool
     ) -> None:
         """
         Update results in database:

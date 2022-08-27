@@ -2,9 +2,9 @@ Results:
     name: "results_screen"
     on_pre_enter: 
         multiplication_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[0])
-        fraction_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[1])
-        roman_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[2])
-        percent_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[3])
+        add_substract_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[1])
+        percent_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[2])
+        roman_result_label.text = root.get_percentage(app.db, app.const.CATEGORIES[3])
     on_enter: nav.switch_tab("results_tab")
     on_leave:
         app.previous_screen = self.name
@@ -52,11 +52,11 @@ Results:
                         orientation: "horizontal"
                         spacing: "10dp"
                         MDLabel:
-                            text: "Ułamki"
+                            text: "Dodawanie/\nOdejmowanie"
                             theme_text_color: "Secondary"
                             halign: "center"
                         MDLabel:
-                            id: fraction_result_label
+                            id: add_substract_result_label
                             text: ""
                             theme_text_color: "Secondary"
                             halign: "center"

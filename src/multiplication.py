@@ -89,7 +89,7 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
             an_hlp.unfocuser(self)
 
         try:
-            user_result = self.ids.result_text.text
+            user_result = int(self.ids.result_text.text)
             computed_result = int(
                 num_ids[0].text) * int(num_ids[1].text)
             self.asked_question_no += 1

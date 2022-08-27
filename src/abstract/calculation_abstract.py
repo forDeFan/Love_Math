@@ -47,32 +47,6 @@ class Calculation_Abstract(ABC, metaclass=Calculation_Abstract_Meta):
         pass
 
     @abstractmethod
-    def good_answer(self) -> None:
-        """
-        If good answer change UI (kv file).
-        """
-        pass
-
-    @abstractmethod
-    def wrong_answer(self) -> None:
-        """
-        If wrong answer change UI in multiplication_screen.kv.
-
-        Affect UI elements with id's:
-            result_label
-            check_button
-            multiplication_result.text
-        """
-        pass
-
-    @abstractmethod
-    def new_ui_setup(self) -> None:
-        """
-        Arrange UI (kv file) for new calculation task.
-        """
-        pass
-
-    @abstractmethod
     def show_result(self, num_ids, nums_range) -> bool:
         """
         Notify user in UI (kv) about right/ wrong result.

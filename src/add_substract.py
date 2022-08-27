@@ -61,19 +61,22 @@ class Add_Substract(Calculation_Abstract, Screen, Answer_Checker):
 
             an_hlp.unfocuser(self)
 
-        # TODO Add exception handling when not int
-        user_result = int(self.ids.result_text.text)
-        computed_result = self.calculate(
-            operator_id=self.ids.operation_type.text, num_ids=num_ids)
-        self.asked_question_no += 1
+        try:
+            # TODO Add exception handling when not int
+            user_result = int(self.ids.result_text.text)
+            computed_result = self.calculate(
+                operator_id=self.ids.operation_type.text, num_ids=num_ids)
+            self.asked_question_no += 1
 
-        if user_result == computed_result:
-            self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
-                nums_range=nums_range))
-            self.set_operation_type(
-                num1_id=num_ids[0], num2_id=num_ids[1])
-            self.good_answer()
-            return True
-        else:
-            self.wrong_answer()
-            return False
+            if user_result == computed_result:
+                self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
+                    nums_range=nums_range))
+                self.set_operation_type(
+                    num1_id=num_ids[0], num2_id=num_ids[1])
+                self.good_answer()
+                return True
+            else:
+                self.wrong_answer()
+                return False
+        except ValueError:
+            self.wrong_value()

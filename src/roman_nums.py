@@ -34,16 +34,18 @@ class Roman_Nums(Calculation_Abstract, Screen, Answer_Checker):
 
             an_hlp.unfocuser(self)
 
-        # TODO Add exception handling when not int
-        user_result = int(self.ids.result_text.text)
-        computed_result = roman.fromRoman(self.ids.roman_num.text)
-        self.asked_question_no += 1
+        try:
+            user_result = int(self.ids.result_text.text)
+            computed_result = roman.fromRoman(self.ids.roman_num.text)
+            self.asked_question_no += 1
 
-        if user_result == computed_result:
-            self.set_num(ids_to_set=ids_to_set, generated_nums=self.generate_num(
-                nums_range=(nums_range[0], nums_range[1])))
-            self.good_answer()
-            return True
-        else:
-            self.wrong_answer()
-            return False
+            if user_result == computed_result:
+                self.set_num(ids_to_set=ids_to_set, generated_nums=self.generate_num(
+                    nums_range=(nums_range[0], nums_range[1])))
+                self.good_answer()
+                return True
+            else:
+                self.wrong_answer()
+                return False
+        except ValueError:
+            self.wrong_value()

@@ -91,11 +91,12 @@ class Results(Screen):
             category_name (str): specified category
             good_answer (bool): True if correct answer given
         """
-        db.update_question_no(category_name=category_name)
-        if good_answer:
-            db.update_result(category_name)
+        if good_answer is not None:
+            db.update_question_no(category_name=category_name)
+            if good_answer:
+                db.update_result(category_name)
 
-        db.update_percent(category_name=category_name)
+            db.update_percent(category_name=category_name)
 
     def hide_results(self) -> None:
         """

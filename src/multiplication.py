@@ -88,15 +88,19 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
 
             an_hlp.unfocuser(self)
 
-        user_result = self.ids.result_text.text
-        computed_result = int(num_ids[0].text) * int(num_ids[1].text)
-        self.asked_question_no += 1
+        try:
+            user_result = self.ids.result_text.text
+            computed_result = int(
+                num_ids[0].text) * int(num_ids[1].text)
+            self.asked_question_no += 1
 
-        if user_result == str(computed_result):
-            self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
-                nums_range=nums_range))
-            self.good_answer()
-            return True
-        else:
-            self.wrong_answer()
-            return False
+            if user_result == str(computed_result):
+                self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
+                    nums_range=nums_range))
+                self.good_answer()
+                return True
+            else:
+                self.wrong_answer()
+                return False
+        except ValueError:
+            self.wrong_value()

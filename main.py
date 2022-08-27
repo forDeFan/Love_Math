@@ -8,11 +8,12 @@ from kivy.utils import platform
 from kivymd.app import MDApp
 
 import src.constants as const
+from src.add_substract import Add_Substract
 from src.db_connection import Db_Connection
+from src.helpers.ui_helpers import Ui_Helpers
 from src.multiplication import Multiply
 from src.results import Results
 from src.roman_nums import Roman_Nums
-from src.helpers.ui_helpers import Ui_Helpers
 
 
 class Main_App(MDApp):
@@ -48,6 +49,7 @@ class Main_App(MDApp):
         Factory.register(Ui_Helpers, "Ui_Helpers")
         Factory.register(Results, "Results")
         Factory.register(Roman_Nums, "Roman_Nums")
+        Factory.register(Add_Substract, "Add_Substract")
 
         # Start global DB.
         self.db = Db_Connection(const.DB_NAME, const.CATEGORIES)

@@ -27,11 +27,12 @@ MDScreen:
                 MDLabel:
                     text: "Tabliczka Mnożenia"
                     halign: "center"
-            # Fractions.
+            # Add/ Substract.
             MDCard:
                 ripple_behavior: True
+                on_release: app.screen_manager.current = "add_substract_screen"
                 MDLabel:
-                    text: "Ułamki"
+                    text: "Dodawanie/ Odejmowanie"
                     halign: "center"
             # Percents.
             MDCard:

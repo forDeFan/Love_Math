@@ -68,6 +68,16 @@ class Ui_Helpers(Widget):
         wid.text = new_text
 
     def change_label_ui(self, label: Widget, l_col: str, l_out_wid: str, l_txt: str, l_f_size: str):
+        """
+        Change UI and text of label in kv file.
+
+        Args:
+            label (Widget): label to be changed
+            l_col (str): label outline color
+            l_out_wid (str): label outline width
+            l_txt (str): label text
+            l_f_size (str): label text font size
+        """
         label.outline_color = l_col
         label.outline_width = l_out_wid
         label.text = l_txt

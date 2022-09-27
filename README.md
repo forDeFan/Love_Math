@@ -1,4 +1,4 @@
-# iLoveMath - Python/ Kivy android app
+<h1>iLoveMath - Python/ Kivy android app</h1>
 
 Primary school level math app developed in Kivy (Android).
 App still in development some bugs may occur.
@@ -58,8 +58,7 @@ If You would like to build apk file and use it in Android emulator or physical d
 1. Buildozer (apk build) installed in project root: [Buildozer install homepage](https://buildozer.readthedocs.io/en/latest/installation.html#targeting-android "Install buildozer")
 2. Android emulator (will focus on GenyMotion and VSCode IDE)/ or physical device.
 
-GenyMotion from VSCode: [GenyMotion menagement Vscode extension](https://marketplace.visualstudio.com/items?itemName=abehrad.genymotion "VScode extension for Genymotion")
-
+GenyMotion from VSCode: [GenyMotion menagement Vscode extension](https://marketplace.visualstudio.com/items?itemName=abehrad.genymotion "VScode extension for Genymotion") <br>
 GenyMotion set-up example: [GenyMotion set-up](https://www.geeksforgeeks.org/how-to-set-up-an-emulator-for-vscode/ "Genymotion set-up")
 
 ## Setup

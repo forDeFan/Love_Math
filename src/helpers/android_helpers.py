@@ -9,7 +9,9 @@ from plyer import sms
 
 
 class Android_Helpers:
-    """To be used on Android."""
+    """
+    Class for interaction with Android systems.
+    """
 
     def get_ph_book(self) -> Dict[str, List[str]]:
         """

@@ -2,7 +2,6 @@ from random import randint
 from typing import Tuple
 
 from kivy.properties import NumericProperty
-from kivy.uix.screenmanager import Screen
 from kivy.utils import platform
 
 import src.helpers.constants as const
@@ -10,7 +9,7 @@ from src.abstract.calculation_abstract import Calculation_Abstract
 from src.answer_checker import Answer_Checker
 
 
-class Multiply(Calculation_Abstract, Screen, Answer_Checker):
+class Multiply(Calculation_Abstract, Answer_Checker):
     """
     Class for multiplication table.
     Used in multiplication_screen.kv.
@@ -21,7 +20,7 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
 
     def generate_num(self, nums_range: Tuple[Tuple[int, int], Tuple[int, int]]) -> Tuple[int, int]:
         """
-        Generate 2 random numbers and return it in Tuple.
+        Generate 2 random numbers.
 
         Args:
             nums_range:
@@ -43,7 +42,7 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
 
         Args:
             ids_to_set (Tuple[str]): 
-                Tuple of id's from kv screen - from which numbers for multiplication are taken/ or set if empty.
+                Id's from kv screen - from which numbers are taken/ or set if empty.
 
             genearated_nums (Tuple[int, int]):
                 Numbers are generated at first app start or when good answer.
@@ -69,8 +68,8 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
 
         Changes params of UI:
             result_label,
-            multiplication_result,
-            multiplication_result.text,
+            result_text,
+            result_text.text,
             check_button.
 
         Args:
@@ -78,11 +77,10 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
             nums_range (List[Tuple[int, int]]): range used by randint for numbers generation.
 
         Returns:
-            bool (to notify Results.update_result()):
+            bool (to notify Results.update_result() in kv file):
             True if correct answer,
             False if wrong answer.
         """
-        # Unfocus textfield on android in order to receive key input.
         if platform == "android":
             from src.helpers.android_helpers import Android_Helpers as an_hlp
 
@@ -94,7 +92,7 @@ class Multiply(Calculation_Abstract, Screen, Answer_Checker):
                 num_ids[0].text) * int(num_ids[1].text)
             self.asked_question_no += 1
 
-            if user_result == str(computed_result):
+            if user_result == computed_result:
                 self.set_num(ids_to_set=[num_ids[0], num_ids[1]], generated_nums=self.generate_num(
                     nums_range=nums_range))
                 self.good_answer()

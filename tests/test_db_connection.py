@@ -2,6 +2,7 @@ import sqlite3
 
 import pytest
 from pytest_mock import mocker
+from src.abstract.db_connection_abstract import Abstract_Db
 from src.db_connection import Db_Connection
 
 
@@ -15,6 +16,9 @@ class Test_Db_Connection:
         yield db
         # Teardown
         db.__del__()
+
+    def test_if_db_connection_is_subclass_of_abstract_db(self):
+        assert issubclass(Db_Connection, Abstract_Db)
 
     def test_if_result_receieved_from_db(self, db_setup):
         res_cat1 = db_setup.get_result("test_cat1")
@@ -79,5 +83,5 @@ class Test_Db_Connection:
         """
         db_setup.update_percent("test_cat1")
         per = int(db_setup.get_percent("test_cat1"))
-        
+
         assert per == -1

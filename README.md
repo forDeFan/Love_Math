@@ -1,7 +1,7 @@
 <h1>iLoveMath - Python/ Kivy android app</h1>
 
-Primary school level math app developed in Kivy (Android).
-App still in development some bugs may occur.
+Primary school level math app developed in Kivy (Android).<br>
+App still in development some bugs may occur.<br>
 Simple UI, some design solutions will be added in the nearest future.
 
 ## Table of contents
@@ -61,6 +61,8 @@ If You would like to build apk file and use it in Android emulator or physical d
 GenyMotion from VSCode: [GenyMotion menagement Vscode extension](https://marketplace.visualstudio.com/items?itemName=abehrad.genymotion "VScode extension for Genymotion") <br>
 GenyMotion set-up example: [GenyMotion set-up](https://www.geeksforgeeks.org/how-to-set-up-an-emulator-for-vscode/ "Genymotion set-up")
 
+3. Android SDK (command-line or SDK): [Official android page](https://developer.android.com/studio?gclid=CjwKCAjw4c-ZBhAEEiwAZ105RSs6r2rFBNJZ_ZdxBh770jI-Z7U3sGCoxOkg7Fa0-KcQfB-HP8E7EhoC6q4QAvD_BwE&gclsrc=aw.ds "Android SDK") 
+
 ## Setup
 
 ### Desktop installation
@@ -90,10 +92,10 @@ Buildozer build (based on predefined buildozer.spec - attached to this repo)
 $ buildozer -v android debug
 ```
 
-In order to debug/ read logs (ADB) during build/ runtime at emulator
+In order to debug/ read logs (with ADB) during build/ runtime at emulator
 
 ```
-adb logcat YOUR_DEVICE_IP > log.txt
+$ adb logcat YOUR_DEVICE_IP > log.txt
 ```
 
 apk will be produced into bin directory at project root.

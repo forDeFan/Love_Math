@@ -16,7 +16,7 @@ APP_LANG = ["pl", "en"]
 # Categories en and pl have to correspond eachother at specific index.
 CATEGORIES = ["multiply", "add_substract", "percent", "roman"]
 CATEGORIES_PL = ["mnożenie", "dodaw./odejm.",
-                 "procenty", "liczby rzymskie"]
+                 "procenty", "l.rzymskie"]
 # Colors.
 BLACK = (0, 0, 0, 1)
 GRAY = (128 / 255, 128 / 255, 128 / 255, 1)

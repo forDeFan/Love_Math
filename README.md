@@ -84,7 +84,7 @@ Highly recommended to establish virtual environment before installation.
 Install codebase:
 
 ```
-$ git clone https://github.com/fordafan/Love_Math.git
+$ git clone https://github.com/forDeFan/Love_Math.git
 $ cd Love_Math
 $ pip3 install -r requirements.txt
 ```

@@ -51,17 +51,29 @@ Project created with:
 
 ## Prerequisites
 
-To be run on desktop (see [Setup](#setup)) - just use pip to install requirements.txt in you virtual environment to be set to go.
-
-If You would like to build apk file and use it in Android emulator or physical device you will need:
-
+To be run on desktop (see [Setup](#setup)) - just use pip to install requirements.txt in you virtual environment to be set to go.<br><br>
+If You would like to use the app in Android emulator or physical device you have two options:
+<br><br>
+A) Build by yourself - you will need:
+<br>
 1. Buildozer (apk build) installed in project root: [Buildozer install homepage](https://buildozer.readthedocs.io/en/latest/installation.html#targeting-android "Install buildozer")
+
 2. Android emulator (will focus on GenyMotion and VSCode IDE)/ or physical device.
 
-GenyMotion from VSCode: [GenyMotion menagement Vscode extension](https://marketplace.visualstudio.com/items?itemName=abehrad.genymotion "VScode extension for Genymotion") <br>
-GenyMotion set-up example: [GenyMotion set-up](https://www.geeksforgeeks.org/how-to-set-up-an-emulator-for-vscode/ "Genymotion set-up")
+    GenyMotion from VSCode: [GenyMotion menagement Vscode extension](https://marketplace.visualstudio.com/items?itemName=abehrad.genymotion "VScode extension for Genymotion") <br>
+    GenyMotion set-up example: [GenyMotion set-up](https://www.geeksforgeeks.org/how-to-set-up-an-emulator-for-vscode/ "Genymotion set-up")
 
 3. Android SDK (command-line or SDK): [Official android page](https://developer.android.com/studio?gclid=CjwKCAjw4c-ZBhAEEiwAZ105RSs6r2rFBNJZ_ZdxBh770jI-Z7U3sGCoxOkg7Fa0-KcQfB-HP8E7EhoC6q4QAvD_BwE&gclsrc=aw.ds "Android SDK") 
+
+<br>
+B) Use apk file attached to this repo:
+<br><br>
+The apk is build for Android API 30, in arch fro armeabi-v7a and x86.
+<br>
+Tested in Android emulator (GenyMotion SamsunGalaxy Android 10, API 29) and physical device RedmiNote 10 (Android 11).
+<br><br>
+<strong>File: in apk_file catalogue at project root.</strong>
+<br><br>
 
 ## Setup
 
@@ -74,7 +86,7 @@ Install codebase:
 ```
 $ git clone https://github.com/fordafan/Love_Math.git
 $ cd Love_Math
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 At this point app can be started by:
@@ -86,7 +98,9 @@ $ python3 main.py
 
 ### Build for Android
 
-Buildozer build (based on predefined buildozer.spec - attached to this repo)
+Buildozer build (based on predefined buildozer.spec file - attached to this repo in project root).
+<br>
+For more detailed description about build check [here](https://buildozer.readthedocs.io/en/latest/quickstart.html "build apk")
 
 ```
 $ buildozer -v android debug
@@ -97,10 +111,3 @@ In order to debug/ read logs (with ADB) during build/ runtime at emulator
 ```
 $ adb logcat YOUR_DEVICE_IP > log.txt
 ```
-
-apk will be produced into bin directory at project root.
-apk can be then installed in Android Emulator or physical device.
-
-## apk installation on physical Android device
-
-** To be developed
